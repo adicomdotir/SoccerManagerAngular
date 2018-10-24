@@ -36,7 +36,7 @@ export class StorageService {
         localStorage.setItem('table', JSON.stringify(table));
     }
 
-    getTable() {
+    getTable(): Table[] {
         return JSON.parse(localStorage.getItem('table'));
     }
 

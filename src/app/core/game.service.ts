@@ -7,7 +7,7 @@ import { Score } from "../shared/model/score";
 @Injectable()
 export class GameService {
 
-    constructor(private storageService: StorageService) {}
+    constructor(private storageService: StorageService) { }
 
     gameCycle() {
         const matches: Match[] = this.storageService.getMatches();
@@ -42,10 +42,101 @@ export class GameService {
             }
             match.homeTeamGoal = homeGoal;
             match.awayTeamGoal = awayGoal;
+            this.updateTable(match);
         }
+        this.sortTable();
         this.storageService.setMatches(matches);
         this.storageService.setScores(scores);
     }
 
-    
+    updateTable(match: Match) {
+        const table = this.storageService.getTable();
+        if (match.homeTeamGoal === match.awayTeamGoal) {
+            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            homeTeam.game++;
+            homeTeam.draw++;
+            homeTeam.gf += match.homeTeamGoal;
+            homeTeam.ga += match.awayTeamGoal;
+            homeTeam.gd = homeTeam.gf - homeTeam.ga;
+            homeTeam.points++;
+            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            awayTeam.game++;
+            awayTeam.draw++;
+            awayTeam.gf += match.awayTeamGoal;
+            awayTeam.ga += match.homeTeamGoal;
+            awayTeam.gd = awayTeam.gf - awayTeam.ga;
+            awayTeam.points++;
+        } else if (match.homeTeamGoal > match.awayTeamGoal) {
+            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            homeTeam.game++;
+            homeTeam.win++;
+            homeTeam.gf += match.homeTeamGoal;
+            homeTeam.ga += match.awayTeamGoal;
+            homeTeam.gd = homeTeam.gf - homeTeam.ga;
+            homeTeam.points += 3;
+            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            awayTeam.game++;
+            awayTeam.lose++;
+            awayTeam.gf += match.awayTeamGoal;
+            awayTeam.ga += match.homeTeamGoal;
+            awayTeam.gd = awayTeam.gf - awayTeam.ga;
+        } else {
+            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            homeTeam.game++;
+            homeTeam.lose++;
+            homeTeam.gf += match.homeTeamGoal;
+            homeTeam.ga += match.awayTeamGoal;
+            homeTeam.gd = homeTeam.gf - homeTeam.ga;
+            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            awayTeam.game++;
+            awayTeam.win++;
+            awayTeam.gf += match.awayTeamGoal;
+            awayTeam.ga += match.homeTeamGoal;
+            awayTeam.gd = awayTeam.gf - awayTeam.ga;
+            awayTeam.points += 3;
+        }
+        this.storageService.setTable(table);
+    }
+
+    private sortTable() {
+        const table = this.storageService.getTable();
+        const size = table.length;
+        // This loop for sort points
+        for (let i = 0; i < size; i++) {
+            for (let j = i + 1; j < size; j++) {
+                if (table[j].points > table[i].points) {
+                    let temp = table[j];
+                    table[j] = table[i];
+                    table[i] = temp;
+                }
+            }
+        }
+        // This loop for sort GD
+        for (let i = 0; i < size; i++) {
+            for (let j = i + 1; j < size; j++) {
+                if (table[j].points === table[i].points) {
+                    if (table[j].gd > table[i].gd) {
+                        let temp = table[j];
+                        table[j] = table[i];
+                        table[i] = temp;
+                    }
+                }
+            }
+        }
+        // This loop for sort GF
+        for (let i = 0; i < size; i++) {
+            for (let j = i + 1; j < size; j++) {
+                if (table[j].points === table[i].points) {
+                    if (table[j].gd === table[i].gd) {
+                        if (table[j].gf > table[i].gf) {
+                            let temp = table[j];
+                            table[j] = table[i];
+                            table[i] = temp;
+                        }
+                    }
+                }
+            }
+        }
+        this.storageService.setTable(table);
+    }
 }
