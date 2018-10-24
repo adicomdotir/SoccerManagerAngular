@@ -28,7 +28,7 @@ export class StorageService {
         localStorage.setItem('matches', JSON.stringify(matches));
     }
 
-    getMatches() {
+    getMatches(): Match[] {
         return JSON.parse(localStorage.getItem('matches'));
     }
 
