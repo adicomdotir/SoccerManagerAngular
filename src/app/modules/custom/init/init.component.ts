@@ -36,13 +36,13 @@ export class InitComponent implements OnInit {
         this.generatePlayers();
         this.generateMathes();
         this.generateTable();
-        let user: User = JSON.parse(localStorage.getItem('user'));
-        if (user == null) {
-            user = new User();
-        }
+
+        let user: User = this.storageService.getUser();
         user.teamId = this.selectedTeam;
         user.size = this.size;
-        localStorage.setItem('user', JSON.stringify(user));
+
+        this.storageService.setUser(user);
+
         this.router.navigateByUrl('/home');
     }
 
@@ -103,7 +103,7 @@ export class InitComponent implements OnInit {
     generatePlayers() {
         const players: Player[] = [];
         for (let i = 1; i <= this.size; i++) {
-            for (let j = 0; j < 16; j++) {
+            for (let j = 0; j < 12; j++) {
                 const pl = new Player();
                 pl.id = players.length + 1;
                 const fn = Math.floor(Math.random() * firstName.length);
