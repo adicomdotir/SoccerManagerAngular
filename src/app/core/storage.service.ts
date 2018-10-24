@@ -3,6 +3,7 @@ import { Player } from "../shared/model/player";
 import { Team } from "../shared/model/team";
 import { Match } from "../shared/model/match";
 import { Table } from "../shared/model/table";
+import { Score } from "../shared/model/score";
 
 @Injectable()
 export class StorageService {
@@ -36,5 +37,13 @@ export class StorageService {
 
     getTable() {
         return JSON.parse(localStorage.getItem('table'));
+    }
+
+    setScores(scores: Score[]) {
+        localStorage.setItem('scores', JSON.stringify(scores));
+    }
+
+    getScores() {
+        return JSON.parse(localStorage.getItem('scores'));
     }
 }
