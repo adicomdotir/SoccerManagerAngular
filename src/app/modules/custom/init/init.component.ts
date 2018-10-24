@@ -5,6 +5,8 @@ import { Team } from '../../../shared/model/team';
 import { Player } from '../../../shared/model/player';
 import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
+import { StorageService } from '../../../core/storage.service';
+import { Table } from '../../../shared/model/table';
 
 @Component({
     selector: 'app-init',
@@ -17,7 +19,7 @@ export class InitComponent implements OnInit {
     selectedTeam: number = 1;
     size: number = 2;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private storageService: StorageService) { }
 
     ngOnInit(): void { }
 
@@ -33,6 +35,7 @@ export class InitComponent implements OnInit {
         this.generateTeams();
         this.generatePlayers();
         this.generateMathes();
+        this.generateTable();
         let user: User = JSON.parse(localStorage.getItem('user'));
         if (user == null) {
             user = new User();
@@ -41,6 +44,17 @@ export class InitComponent implements OnInit {
         user.size = this.size;
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('/home');
+    }
+
+    generateTable() {
+        const table: Table[] = [];
+        for (let i = 1; i <= this.size; i++) {
+            const temp = new Table();
+            temp.id = table.length + 1;
+            temp.teamId = i;
+            table.push(temp);
+        }
+        this.storageService.setTable(table);
     }
 
     generateMathes() {
@@ -58,7 +72,7 @@ export class InitComponent implements OnInit {
             }
             this.swapWeek(temp);
         }
-        localStorage.setItem('matches', JSON.stringify(matches));
+        this.storageService.setMatches(matches);
     }
 
     swapWeek(temp: number[]) {
@@ -83,7 +97,7 @@ export class InitComponent implements OnInit {
                 teamsId.push(rnd);
             }
         }
-        localStorage.setItem('teams', JSON.stringify(gTeams));
+        this.storageService.setTeams(gTeams);
     }
 
     generatePlayers() {
@@ -104,7 +118,7 @@ export class InitComponent implements OnInit {
                 players.push(pl);
             }
         }
-        localStorage.setItem('players', JSON.stringify(players))
+        this.storageService.setPlayers(players);
     }
 
 }
