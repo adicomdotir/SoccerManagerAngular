@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { InitComponent } from './init/init.component';
+import { TableComponent } from './table/table.component';
+import { FixtureComponent } from './fixture/fixture.component';
+import { PlayerComponent } from './player/player.component';
+import { ScoreComponent } from './score/score.component';
+import { TeamComponent } from './team/team.component';
+import { TopscorerComponent } from './topscorer/topscorer.component';
 
 const routes: Routes = [
     {
@@ -11,16 +17,22 @@ const routes: Routes = [
         path: 'home', component: HomeComponent
     },
     {
-        path: 'table', component: HomeComponent
+        path: 'table', component: TableComponent
     },
     {
-        path: 'fixture', component: HomeComponent
+        path: 'fixture', component: FixtureComponent
     },
     {
-        path: 'score', component: HomeComponent
+        path: 'score', component: ScoreComponent
     },
     {
-        path: 'player', component: HomeComponent
+        path: 'player', component: PlayerComponent
+    },
+    {
+        path: 'team', component: TeamComponent
+    },
+    {
+        path: 'topscorer', component: TopscorerComponent
     }
 ];
 
