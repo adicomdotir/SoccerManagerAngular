@@ -12,7 +12,7 @@ export class StorageService {
         localStorage.setItem('players', JSON.stringify(players));
     }
 
-    getPlayers() {
+    getPlayers(): Player[] {
         return JSON.parse(localStorage.getItem('players'));
     }
 
@@ -44,7 +44,7 @@ export class StorageService {
         localStorage.setItem('scores', JSON.stringify(scores));
     }
 
-    getScores() {
+    getScores(): Score[] {
         return JSON.parse(localStorage.getItem('scores'));
     }
 

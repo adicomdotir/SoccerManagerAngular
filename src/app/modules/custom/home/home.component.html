@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            <h3><a href="#">League Table</a></h3>
-            <table class="table">
+            <h3><a routerLink="/table">League Table</a></h3>
+            <table class="table table-sm">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -17,7 +17,7 @@
                 <tbody>
                     <tr *ngFor="let item of table; let i = index">
                         <th scope="row">{{i + 1}}</th>
-                        <td>{{getTeamName(item.teamId)}}</td>
+                        <td><a routerLink="/team">{{getTeamName(item.teamId)}}</a></td>
                         <td>{{item.game}}</td>
                         <td>{{item.win}}</td>
                         <td>{{item.lose}}</td>
@@ -27,11 +27,30 @@
                 </tbody>
             </table>
         </div>
+        <div class="col-md-6 text-center">
+            <h3><a routerLink="/topscorer">TopScorer</a></h3>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Goal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of topScorer; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td><a routerLink="/player">{{getPlayerName(item.playerId)}}</a></td>
+                        <td>{{item.goal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="row">
-                <label for="fixture"><h3><a href="#">Fixture</a></h3></label>
+                <label for="fixture"><h3><a routerLink="/fixture">Fixture</a></h3></label>
                 <select class="form-control" id="fixture" (change)="fixtureChange($event.target.value)">
                     <option *ngFor="let item of counter(user.size); let i = index" value="{{i + 1}}">Week {{i + 1}}</option>
                 </select>
@@ -39,7 +58,7 @@
             <br>
             <div class="row" *ngFor="let item of matches">
                 <div class="col-md-4 text-center">{{getTeamName(item.homeTeamId)}}</div>
-                <div class="col-md-4 text-center"><a href="#">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a></div>
+                <div class="col-md-4 text-center"><a routerLink="/score">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a></div>
                 <div class="col-md-4 text-center">{{getTeamName(item.awayTeamId)}}</div>
             </div>
         </div>

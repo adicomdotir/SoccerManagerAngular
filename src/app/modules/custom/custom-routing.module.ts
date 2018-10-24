@@ -9,6 +9,18 @@ const routes: Routes = [
     },
     {
         path: 'home', component: HomeComponent
+    },
+    {
+        path: 'table', component: HomeComponent
+    },
+    {
+        path: 'fixture', component: HomeComponent
+    },
+    {
+        path: 'score', component: HomeComponent
+    },
+    {
+        path: 'player', component: HomeComponent
     }
 ];
 
