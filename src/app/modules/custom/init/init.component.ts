@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Team } from '../../../shared/model/team';
 import { Player } from '../../../shared/model/player';
 import { User } from '../../../shared/model/user';
+import { Match } from '../../../shared/model/match';
 
 @Component({
     selector: 'app-init',
@@ -11,26 +12,27 @@ import { User } from '../../../shared/model/user';
     styleUrls: ['./init.component.css']
 })
 export class InitComponent implements OnInit {
-    
+
     teams = teamNames;
     selectedTeam: number = 1;
     size: number = 2;
-    
-    constructor(private router: Router) {}
-    
-    ngOnInit(): void {}
+
+    constructor(private router: Router) { }
+
+    ngOnInit(): void { }
 
     teamSelect(index) {
         this.selectedTeam = Number.parseInt(index) + 1;
     }
 
     sizeSelect(index) {
-        this.size = index;
+        this.size = Number.parseInt(index);
     }
 
     onClick() {
         this.generateTeams();
         this.generatePlayers();
+        this.generateMathes();
         let user: User = JSON.parse(localStorage.getItem('user'));
         if (user == null) {
             user = new User();
@@ -39,6 +41,32 @@ export class InitComponent implements OnInit {
         user.size = this.size;
         localStorage.setItem('user', JSON.stringify(user));
         this.router.navigateByUrl('/home');
+    }
+
+    generateMathes() {
+        const temp: number[] = [];
+        const matches: Match[] = [];
+        for (let i = 1; i <= this.size; i++) {
+            temp.push(i);
+        }
+        // Week 
+        for (let i = 1; i <= (this.size - 1) * 2; i++) {
+            // Match
+            for (let j = 0; j < this.size / 2; j++) {
+                const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
+                matches.push(matchTemp);
+            }
+            this.swapWeek(temp);
+        }
+        localStorage.setItem('matches', JSON.stringify(matches));
+    }
+
+    swapWeek(temp: number[]) {
+        let lastTeamId = temp[this.size - 1];
+        for (let i = this.size - 1; i > 0; i--) {
+            temp[i] = temp[i - 1];
+        }
+        temp[1] = lastTeamId;
     }
 
     generateTeams() {
@@ -61,7 +89,7 @@ export class InitComponent implements OnInit {
     generatePlayers() {
         const players: Player[] = [];
         for (let i = 1; i <= this.size; i++) {
-            for (let j = 0; j < 16; j++) {         
+            for (let j = 0; j < 16; j++) {
                 const pl = new Player();
                 pl.id = players.length + 1;
                 const fn = Math.floor(Math.random() * firstName.length);
