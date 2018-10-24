@@ -41,11 +41,6 @@ export class HomeComponent implements OnInit {
         this.topScorer = this.topScorer.sort((a, b) => b.goal - a.goal).slice(0, 5);
     }
 
-    getTeamName(id) {
-        const team = this.storage.getTeams().filter(x => x.id === id)[0];
-        return team.name;
-    }
-
     getPlayerName(id) {
         const player = this.storage.getPlayers().filter(x => x.id == id)[0];
         return player.name;

@@ -59,4 +59,9 @@ export class StorageService {
     setUser(user: User) {
         localStorage.setItem('user', JSON.stringify(user));
     }
+
+    getTeamName(id): string {
+        const team = this.getTeams().filter(x => x.id === id)[0];
+        return team.name;
+    }
 }
