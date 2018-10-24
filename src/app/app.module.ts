@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StorageService } from './core/storage.service';
+import { GameService } from './core/game.service';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,7 @@ import { StorageService } from './core/storage.service';
         BrowserModule,
         AppRoutingModule
     ],
-    providers: [StorageService],
+    providers: [StorageService, GameService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
