@@ -20,7 +20,7 @@ export class StorageService {
         localStorage.setItem('teams', JSON.stringify(teams));
     }
 
-    getTeams() {
+    getTeams(): Team[] {
         return JSON.parse(localStorage.getItem('teams'));
     }
 
