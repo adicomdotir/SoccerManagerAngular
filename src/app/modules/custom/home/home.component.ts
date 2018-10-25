@@ -5,7 +5,7 @@ import { Table } from '../../../shared/model/table';
 import { StorageService } from '../../../core/storage.service';
 import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
-import { Score } from '../../../shared/model/score';
+import { TopScorer } from '../../../shared/model/topscorer';
 
 @Component({
     selector: 'app-home',
@@ -50,15 +50,5 @@ export class HomeComponent implements OnInit {
 
     fixtureChange(index) {
         this.matches = this.storage.getMatches().filter(x => x.week == index);
-    }
-}
-
-class TopScorer {
-    playerId: number;
-    goal: number;
-
-    constructor(playerId, goal) {
-        this.playerId = playerId;
-        this.goal = goal;
     }
 }
