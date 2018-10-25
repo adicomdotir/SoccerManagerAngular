@@ -6,53 +6,71 @@ import { Table } from "../shared/model/table";
 import { Score } from "../shared/model/score";
 import { User } from "../shared/model/user";
 import { Router } from "@angular/router";
+import * as crypto from "crypto-js";
 
 @Injectable()
 export class StorageService {
-    constructor(private router: Router) {}
+    private secret = '123456789';
+    constructor(private router: Router) { }
+
+    encrypt(route, objectString) {
+        const hash = crypto.AES.encrypt(objectString, this.secret);
+        localStorage.setItem(route, hash.toString());
+    }
+
+    decrypt(route) {
+        const hash = localStorage.getItem(route);
+        const objectString = crypto.AES.decrypt(hash, this.secret);
+        return objectString.toString(crypto.enc.Utf8);
+    }
 
     setPlayers(players: Player[]) {
-        localStorage.setItem('players', JSON.stringify(players));
+        this.encrypt('players', JSON.stringify(players));
     }
 
     getPlayers(): Player[] {
-        return JSON.parse(localStorage.getItem('players'));
+        return JSON.parse(this.decrypt('players'));
     }
 
     setTeams(teams: Team[]) {
-        localStorage.setItem('teams', JSON.stringify(teams));
+        this.encrypt('teams', JSON.stringify(teams));
     }
 
     getTeams(): Team[] {
-        return JSON.parse(localStorage.getItem('teams'));
+        return JSON.parse(this.decrypt('teams'));
     }
 
     setMatches(matches: Match[]) {
-        localStorage.setItem('matches', JSON.stringify(matches));
+        this.encrypt('matches', JSON.stringify(matches));
     }
 
     getMatches(): Match[] {
-        return JSON.parse(localStorage.getItem('matches'));
+        return JSON.parse(this.decrypt('matches'));
     }
 
     setTable(table: Table[]) {
-        localStorage.setItem('table', JSON.stringify(table));
+        this.encrypt('table', JSON.stringify(table));
     }
 
     getTable(): Table[] {
-        return JSON.parse(localStorage.getItem('table'));
+        return JSON.parse(this.decrypt('table'));
     }
 
     setScores(scores: Score[]) {
-        localStorage.setItem('scores', JSON.stringify(scores));
+        this.encrypt('scores', JSON.stringify(scores));
     }
 
     getScores(): Score[] {
-        return JSON.parse(localStorage.getItem('scores'));
+        return JSON.parse(this.decrypt('scores'));
     }
 
     getUser() {
-        let user: User = JSON.parse(localStorage.getItem('user'));
+        let user: User = null;
+        try {
+            user = JSON.parse(this.decrypt('user'));
+        } catch (error) {
+        }
+
         if (user == null) {
             user = new User();
         }
@@ -60,7 +78,7 @@ export class StorageService {
     }
 
     setUser(user: User) {
-        localStorage.setItem('user', JSON.stringify(user));
+        this.encrypt('user', JSON.stringify(user));
     }
 
     getTeamName(id): string {
@@ -75,22 +93,22 @@ export class StorageService {
 
     linkClick(pageName, id) {
         let user;
-        switch(pageName) {
+        switch (pageName) {
             case 'team':
                 user = this.getUser();
                 user.selectedTeamId = id;
                 this.setUser(user);
-            break;
+                break;
             case 'score':
                 user = this.getUser();
                 user.selectedMatchId = id;
                 this.setUser(user);
-            break;
+                break;
             case 'player':
                 user = this.getUser();
                 user.selectedPlayerId = id;
                 this.setUser(user);
-            break;
+                break;
         }
         this.router.navigate(['/' + pageName]);
     }

@@ -4,4 +4,5 @@ export class User {
     selectedTeamId?: number;
     selectedMatchId?: number;
     selectedPlayerId?: number;
+    status: string;
 }

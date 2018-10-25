@@ -21,9 +21,13 @@ export class HomeComponent implements OnInit {
     constructor(private gameService: GameService, private storage: StorageService, private router: Router) { }
 
     ngOnInit() {
-        this.gameService.gameCycle();
-        this.table = this.storage.getTable();
         this.user = this.storage.getUser();
+        if (this.user.status === 'start') {
+            this.user.status = 'end';
+            this.storage.setUser(this.user);
+            this.gameService.gameCycle();
+        }
+        this.table = this.storage.getTable();
         this.matches = this.storage.getMatches().filter(x => x.week === 1);
         this.calculateTopScorer();
     }

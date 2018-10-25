@@ -1,1 +1,5 @@
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Mali');
+body, html {
+    font-family: 'Mali', cursive;
+}
