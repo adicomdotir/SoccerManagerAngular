@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { GameService } from '../../../core/game.service';
 import { Table } from '../../../shared/model/table';
 import { StorageService } from '../../../core/storage.service';
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
     matches: Match[];
     topScorer: TopScorer[] = [];
 
-    constructor(private gameService: GameService, private storage: StorageService) { }
+    constructor(private gameService: GameService, private storage: StorageService, private router: Router) { }
 
     ngOnInit() {
         this.gameService.gameCycle();
@@ -53,7 +54,6 @@ export class HomeComponent implements OnInit {
     fixtureChange(index) {
         this.matches = this.storage.getMatches().filter(x => x.week == index);
     }
-
 }
 
 class TopScorer {

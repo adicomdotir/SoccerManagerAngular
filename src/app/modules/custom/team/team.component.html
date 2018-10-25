@@ -1,3 +1,33 @@
-<p>
-  team works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4"><h3>{{storage.getTeamName(user.selectedTeamId)}}</h3></div>
+                <div class="col-md-4"><h3>Overall: {{overall}}</h3></div>
+                <div class="col-md-4"><h3>Average Age: {{averageAge.toPrecision(2)}}</h3></div>
+            </div>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">ShirtNumber</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Overall</th>
+                        <th scope="col">National</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of players; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td><a routerLink="#" (click)="linkClick('player', item.id)">{{item.name}}</a></td>
+                        <td>{{item.number}}</td>
+                        <td>{{item.age}}</td>
+                        <td>{{item.overall}}</td>
+                        <td>{{item.national}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

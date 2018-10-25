@@ -115,6 +115,7 @@ export class InitComponent implements OnInit {
                 pl.overall = pl.attack + pl.defend;
                 pl.teamId = i;
                 pl.national = countries[Math.floor(Math.random() * countries.length)];
+                pl.number = Math.floor(Math.random() * 99) + 1;
                 players.push(pl);
             }
         }

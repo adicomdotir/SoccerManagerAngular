@@ -7,4 +7,5 @@ export class Player {
     defend: number;
     teamId: number;
     national: string;
+    number: number;
 }

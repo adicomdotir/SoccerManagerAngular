@@ -1,15 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../../core/storage.service';
+import { Player } from '../../../shared/model/player';
+import { User } from '../../../shared/model/user';
 
 @Component({
-  selector: 'app-team',
-  templateUrl: './team.component.html',
-  styleUrls: ['./team.component.css']
+    selector: 'app-team',
+    templateUrl: './team.component.html',
+    styleUrls: ['./team.component.css']
 })
 export class TeamComponent implements OnInit {
+    players: Player[];
+    user: User;
+    averageAge: number = 0;
+    overall: number = 0;
 
-  constructor() { }
+    constructor(private storage: StorageService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.user = this.storage.getUser();
+        this.players = this.storage.getPlayers().filter(x => x.teamId == this.user.selectedTeamId);
+        this.players.forEach(x => {
+            this.averageAge += x.age;
+            this.overall += x.overall;
+        });
+        this.averageAge /= this.players.length;
+        this.overall /= this.players.length;
+        this.overall = Math.round(this.overall);
+    }
 
 }

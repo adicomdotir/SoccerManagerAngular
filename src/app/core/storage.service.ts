@@ -5,9 +5,12 @@ import { Match } from "../shared/model/match";
 import { Table } from "../shared/model/table";
 import { Score } from "../shared/model/score";
 import { User } from "../shared/model/user";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class StorageService {
+    constructor(private router: Router) {}
+
     setPlayers(players: Player[]) {
         localStorage.setItem('players', JSON.stringify(players));
     }
@@ -63,5 +66,16 @@ export class StorageService {
     getTeamName(id): string {
         const team = this.getTeams().filter(x => x.id === id)[0];
         return team.name;
+    }
+
+    linkClick(pageName, id) {
+        switch(pageName) {
+            case 'team':
+                const user = this.getUser();
+                user.selectedTeamId = id;
+                this.setUser(user);
+            break;
+        }
+        this.router.navigate(['/' + pageName]);
     }
 }
