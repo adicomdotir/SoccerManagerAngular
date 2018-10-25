@@ -68,11 +68,27 @@ export class StorageService {
         return team.name;
     }
 
+    getPlayerName(id) {
+        const player = this.getPlayers().filter(x => x.id == id)[0];
+        return player.name;
+    }
+
     linkClick(pageName, id) {
+        let user;
         switch(pageName) {
             case 'team':
-                const user = this.getUser();
+                user = this.getUser();
                 user.selectedTeamId = id;
+                this.setUser(user);
+            break;
+            case 'score':
+                user = this.getUser();
+                user.selectedMatchId = id;
+                this.setUser(user);
+            break;
+            case 'player':
+                user = this.getUser();
+                user.selectedPlayerId = id;
                 this.setUser(user);
             break;
         }

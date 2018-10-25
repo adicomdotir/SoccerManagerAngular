@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../../core/storage.service';
+import { Score } from '../../../shared/model/score';
 
 @Component({
-  selector: 'app-score',
-  templateUrl: './score.component.html',
-  styleUrls: ['./score.component.css']
+    selector: 'app-score',
+    templateUrl: './score.component.html',
+    styleUrls: ['./score.component.css']
 })
 export class ScoreComponent implements OnInit {
+    scores: Score[];
 
-  constructor() { }
+    constructor(private storage: StorageService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        const user = this.storage.getUser();
+        this.scores = this.storage.getScores().filter(x => x.matchId == user.selectedMatchId);
+    }
 
 }

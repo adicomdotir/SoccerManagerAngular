@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from '../../../core/storage.service';
+import { Player } from '../../../shared/model/player';
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css']
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrls: ['./player.component.css']
 })
 export class PlayerComponent implements OnInit {
+    player: Player;
 
-  constructor() { }
+    constructor(private storage: StorageService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        const user = this.storage.getUser();
+        this.player = this.storage.getPlayers().filter(x => x.id == user.selectedPlayerId)[0];
+    }
 
 }

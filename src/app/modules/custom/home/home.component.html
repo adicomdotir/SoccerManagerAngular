@@ -40,7 +40,7 @@
                 <tbody>
                     <tr *ngFor="let item of topScorer; let i = index">
                         <th scope="row">{{i + 1}}</th>
-                        <td><a routerLink="#" (click)="storage.linkClick('player')">{{getPlayerName(item.playerId)}}</a></td>
+                        <td><a routerLink="#" (click)="storage.linkClick('player')">{{storage.getPlayerName(item.playerId)}}</a></td>
                         <td>{{item.goal}}</td>
                     </tr>
                 </tbody>
@@ -58,7 +58,7 @@
             <br>
             <div class="row" *ngFor="let item of matches">
                 <div class="col-md-4 text-center">{{storage.getTeamName(item.homeTeamId)}}</div>
-                <div class="col-md-4 text-center"><a routerLink="#" (click)="storage.linkClick('score')">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a></div>
+                <div class="col-md-4 text-center"><a routerLink="#" (click)="storage.linkClick('score', item.id)">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a></div>
                 <div class="col-md-4 text-center">{{storage.getTeamName(item.awayTeamId)}}</div>
             </div>
         </div>
