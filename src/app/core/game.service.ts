@@ -21,20 +21,36 @@ export class GameService {
             const awayPlayers = players.filter(p => p.teamId === awayTeamId);
             let homeGoal = 0, awayGoal = 0;
             const homeGK = homePlayers[0];
+            homeGK.playedGK++;
             const awayGK = awayPlayers[0];
+            awayGK.playedGK++;
             for (let j = 1; j <= 5; j++) {
                 const homePlayer = homePlayers[j];
+                //
+                homePlayer.playedPlayer++;
+                //
                 let homeScore = Math.floor(Math.random() * homePlayer.overall);
                 let awayScore = Math.floor(Math.random() * awayGK.overall);
                 if (homeScore > awayScore) {
+                    //
+                    homePlayer.scored++;
+                    awayGK.conceded++;
+                    //
                     homeGoal++;
                     const score = new Score(scores.length + 1, match.id, homePlayer.id);
                     scores.push(score);
                 }
                 const awayPlayer = awayPlayers[j];
+                //
+                awayPlayer.playedPlayer++;
+                //
                 homeScore = Math.floor(Math.random() * homeGK.overall);
                 awayScore = Math.floor(Math.random() * awayPlayer.overall);
                 if (homeScore < awayScore) {
+                    //
+                    awayPlayer.scored++;
+                    homeGK.conceded++;
+                    //
                     awayGoal++;
                     const score = new Score(scores.length + 1, match.id, awayPlayer.id);
                     scores.push(score);
@@ -45,6 +61,7 @@ export class GameService {
             this.updateTable(match);
         }
         this.sortTable();
+        this.storageService.setPlayers(players);
         this.storageService.setMatches(matches);
         this.storageService.setScores(scores);
     }

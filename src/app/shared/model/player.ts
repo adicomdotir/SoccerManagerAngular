@@ -8,4 +8,9 @@ export class Player {
     teamId: number;
     national: string;
     number: number;
+
+    playedPlayer: number = 0;
+    playedGK: number = 0;
+    scored: number = 0;
+    conceded: number = 0;
 }
