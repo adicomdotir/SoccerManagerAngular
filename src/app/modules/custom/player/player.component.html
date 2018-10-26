@@ -1,33 +1,38 @@
 <div class="container">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <table class="table">
             <tr>
                 <td colspan="2">
-                    <h2 style="color: #00171F">{{player.number}}. {{player.name}}</h2>
+                    <h2 style="color: #3B3833">{{player.number}}. {{player.name}}</h2>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 style="color: #003459">Age: {{player.age}}</h4>
+                    <h4 style="color: #6D7D6B">Age: {{player.age}}</h4>
                 </td>
                 <td>
-                    <h4 style="color: #007EA7">Overall: {{player.overall}}</h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h4 style="color: #247BA0">Attack: {{player.attack}}</h4>
-                </td>
-                <td>
-                    <h4 style="color: #00A8E8">Defend: {{player.defend}}</h4>
+                    <h4 style="color: #1D7874">Overall: {{player.overall}}</h4>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 style="color: #092438">GoalKeeper: {{player.goalkeeper}}</h4>
+                    <h4 style="color: #071E22">Attack: {{player.attack}}</h4>
+                </td>
+                <td>
+                    <h4 style="color: #679289">Defend: {{player.defend}}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 style="color: #3B3833">GoalKeeper: {{player.goalkeeper}}</h4>
                 </td>
                 <td>
                     <h4 style="color: #00171F">Finish: {{player.finish}}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4 style="color: #092438">Morale: {{getMorale(player.morale    )}}</h4>
                 </td>
             </tr>
             <tr>
@@ -40,18 +45,18 @@
             </tr>
             <tr>
                 <td>
-                    <h4 style="color: #50514F">Played Player: {{player.playedPlayer}}</h4>
+                    <h4 style="color: #071E22   ">Played Player: {{player.playedPlayer}}</h4>
                 </td>
                 <td>
-                    <h4 style="color: #007EA7">Scored: {{player.scored}}</h4>
+                    <h4 style="color: #679289">Scored: {{player.scored}}</h4>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 style="color: #00A8E8">Played GK: {{player.playedGK}}</h4>
+                    <h4 style="color: #3B3833">Played GK: {{player.playedGK}}</h4>
                 </td>
                 <td>
-                    <h4 style="color: #247BA0">Conceded: {{player.conceded}}</h4>
+                    <h4 style="color: #1D7874">Conceded: {{player.conceded}}</h4>
                 </td>
             </tr>
         </table>

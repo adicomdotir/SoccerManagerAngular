@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../core/storage.service';
 import { Player } from '../../../shared/model/player';
+import { MORALES } from '../../../config/localdata';
 
 @Component({
     selector: 'app-player',
@@ -15,6 +16,10 @@ export class PlayerComponent implements OnInit {
     ngOnInit() {
         const user = this.storage.getUser();
         this.player = this.storage.getPlayers().filter(x => x.id == user.selectedPlayerId)[0];
+    }
+
+    getMorale(id) {
+        return MORALES[id];
     }
 
 }

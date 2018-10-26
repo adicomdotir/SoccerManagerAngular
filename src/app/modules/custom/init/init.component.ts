@@ -34,7 +34,7 @@ export class InitComponent implements OnInit {
     onClick() {
         this.generateTeams();
         this.generatePlayers();
-        this.generateMathes();
+        this.generateMatches();
         this.generateTable();
 
         let user: User = this.storageService.getUser();
@@ -57,7 +57,7 @@ export class InitComponent implements OnInit {
         this.storageService.setTable(table);
     }
 
-    generateMathes() {
+    generateMatches() {
         const temp: number[] = [];
         const matches: Match[] = [];
         for (let i = 1; i <= this.size; i++) {
@@ -114,6 +114,7 @@ export class InitComponent implements OnInit {
                 pl.defend = Math.floor(Math.random() * 20) + 1;
                 pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
                 pl.finish = Math.floor(Math.random() * 20) + 1;
+                pl.morale = 4;
                 pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
                 pl.teamId = i;
                 pl.national = countries[Math.floor(Math.random() * countries.length)];

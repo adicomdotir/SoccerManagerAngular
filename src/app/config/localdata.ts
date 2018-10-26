@@ -346,3 +346,15 @@ export const firstName = [
     'Warren',
     'William'
 ];
+
+export const MORALES = [
+    'Horrible', 
+    'Terrible', 
+    'Poor', 
+    'Bad',
+    'Normal',
+    'Good', 
+    'Great', 
+    'Excellent', 
+    'Perfect'
+];

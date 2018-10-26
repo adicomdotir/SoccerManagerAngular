@@ -10,7 +10,7 @@ export class Player {
     number: number;
     finish: number;
     goalkeeper: number;
-
+    morale: number;
     playedPlayer: number = 0;
     playedGK: number = 0;
     scored: number = 0;
