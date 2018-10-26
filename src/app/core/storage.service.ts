@@ -112,4 +112,14 @@ export class StorageService {
         }
         this.router.navigate(['/' + pageName]);
     }
+
+    getTeamOverall(teamId) {
+        let overall = 0;
+        let count = 0;
+        this.getPlayers().filter(x => x.teamId == teamId).forEach(x => {
+            overall += x.overall;
+            count += 1;
+        });
+        return Math.round(overall / count);
+    }
 }

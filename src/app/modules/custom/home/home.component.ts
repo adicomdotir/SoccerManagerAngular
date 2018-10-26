@@ -6,6 +6,7 @@ import { StorageService } from '../../../core/storage.service';
 import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
 import { TopScorer } from '../../../shared/model/topscorer';
+import { Player } from '../../../shared/model/player';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +18,7 @@ export class HomeComponent implements OnInit {
     user: User;
     matches: Match[];
     topScorer: TopScorer[] = [];
+    players: Player[] = [];
 
     constructor(private gameService: GameService, private storage: StorageService, private router: Router) { }
 
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
         }
         this.table = this.storage.getTable();
         this.matches = this.storage.getMatches().filter(x => x.week === 1);
+        this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall).slice(0, 5);     
         this.calculateTopScorer();
     }
 
@@ -45,8 +48,6 @@ export class HomeComponent implements OnInit {
         }
         this.topScorer = this.topScorer.sort((a, b) => b.goal - a.goal).slice(0, 5);
     }
-
-    
 
     counter(n: number): any[] {
         return Array((n - 1) * 2);

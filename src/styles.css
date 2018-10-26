@@ -1,5 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
-@import url('https://fonts.googleapis.com/css?family=Mali');
+@import url('https://fonts.googleapis.com/css?family=Bitter');
 body, html {
-    font-family: 'Neucha', cursive;
+    font-family: 'Bitter', serif;
 }
