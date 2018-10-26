@@ -85,9 +85,9 @@ export class InitComponent implements OnInit {
 
     generateTeams() {
         let gTeams: Team[] = [];
-        const myTeam = new Team(gTeams.length + 1, this.teams[this.selectedTeam], 0);
+        const myTeam = new Team(gTeams.length + 1, this.teams[this.selectedTeam - 1], 0);
         const teamsId: number[] = [];
-        teamsId.push(this.selectedTeam);
+        teamsId.push(this.selectedTeam - 1);
         gTeams.push(myTeam);
         while (gTeams.length < this.size) {
             let rnd = Math.floor(Math.random() * this.teams.length);
