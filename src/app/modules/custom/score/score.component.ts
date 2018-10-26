@@ -17,4 +17,9 @@ export class ScoreComponent implements OnInit {
         this.scores = this.storage.getScores().filter(x => x.matchId == user.selectedMatchId);
     }
 
+    getPlayerTeam(id) {
+        const player = this.storage.getPlayers().filter(x => x.id == id)[0];
+        return this.storage.getTeamName(player.teamId);
+    }
+
 }

@@ -31,4 +31,9 @@ export class TopscorerComponent implements OnInit {
         this.topScorer = this.topScorer.sort((a, b) => b.goal - a.goal);
     }
 
+    getPlayerTeam(id) {
+        const player = this.storage.getPlayers().filter(x => x.id == id)[0];
+        return this.storage.getTeamName(player.teamId);
+    }
+
 }
