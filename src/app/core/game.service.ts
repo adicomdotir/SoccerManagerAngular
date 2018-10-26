@@ -29,8 +29,8 @@ export class GameService {
                 //
                 homePlayer.playedPlayer++;
                 //
-                let homeScore = Math.floor(Math.random() * homePlayer.overall);
-                let awayScore = Math.floor(Math.random() * awayGK.overall);
+                let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2);
+                let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2);
                 if (homeScore > awayScore) {
                     //
                     homePlayer.scored++;
@@ -44,8 +44,8 @@ export class GameService {
                 //
                 awayPlayer.playedPlayer++;
                 //
-                homeScore = Math.floor(Math.random() * homeGK.overall);
-                awayScore = Math.floor(Math.random() * awayPlayer.overall);
+                homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2);
+                awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2);
                 if (homeScore < awayScore) {
                     //
                     awayPlayer.scored++;

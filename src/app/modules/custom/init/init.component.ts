@@ -112,7 +112,9 @@ export class InitComponent implements OnInit {
                 pl.age = Math.floor(Math.random() * 18) + 18;
                 pl.attack = Math.floor(Math.random() * 20) + 1;
                 pl.defend = Math.floor(Math.random() * 20) + 1;
-                pl.overall = pl.attack + pl.defend;
+                pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
+                pl.finish = Math.floor(Math.random() * 20) + 1;
+                pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
                 pl.teamId = i;
                 pl.national = countries[Math.floor(Math.random() * countries.length)];
                 pl.number = Math.floor(Math.random() * 99) + 1;

@@ -9,9 +9,8 @@
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
                         <th scope="col">ShirtNumber</th>
+                        <th scope="col">Name</th>
                         <th scope="col">Age</th>
                         <th scope="col">Overall</th>
                         <th scope="col">National</th>
@@ -19,9 +18,8 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of players; let i = index">
-                        <th scope="row">{{i + 1}}</th>
-                        <td><a routerLink="#" (click)="storage.linkClick('player', item.id)">{{item.name}}</a></td>
                         <td>{{item.number}}</td>
+                        <td><a routerLink="#" (click)="storage.linkClick('player', item.id)">{{item.name}}</a></td>
                         <td>{{item.age}}</td>
                         <td>{{item.overall}}</td>
                         <td>{{item.national}}</td>
