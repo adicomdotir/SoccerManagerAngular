@@ -22,4 +22,16 @@ export class PlayerComponent implements OnInit {
         return MORALES[id];
     }
 
+    getColor(index) {
+        let R = 256 - index * 32;
+        R = R > 255 ? 255 : R;
+        let G = index * 32;
+        G = G > 255 ? 255 : G;
+        let B = 0;
+        let RR = ((R.toString(16).length == 1) ? "0" + R.toString(16) : R.toString(16));
+        let GG = ((G.toString(16).length == 1) ? "0" + G.toString(16) : G.toString(16));
+        let BB = ((B.toString(16).length == 1) ? "0" + B.toString(16) : B.toString(16));
+        return '#' + RR + GG + BB;
+    }
+
 }
