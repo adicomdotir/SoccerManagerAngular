@@ -2,12 +2,22 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4"><h3>{{storage.getTeamName(user.selectedTeamId)}}</h3></div>
-                <div class="col-md-4"><h3>Overall: {{overall}}</h3></div>
-                <div class="col-md-4"><h3>Average Age: {{averageAge.toPrecision(2)}}</h3></div>
+                <div class="col-md-3 text-center">
+                    <h5>{{storage.getTeamName(user.selectedTeamId)}}</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h5>Overall: {{overall}}</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h5>Average Age: {{averageAge.toPrecision(2)}}</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <h5>Player Size: {{players.length}}</h5>
+                </div>
             </div>
-            <table class="table table-sm">
-                <thead>
+            <br>
+            <table class="table table-sm ">
+                <thead class="thead-default">
                     <tr>
                         <th scope="col">ShirtNumber</th>
                         <th scope="col">Name</th>
@@ -19,7 +29,18 @@
                 <tbody>
                     <tr *ngFor="let item of players; let i = index">
                         <td>{{item.number}}</td>
-                        <td><a routerLink="#" (click)="storage.linkClick('player', item.id)">{{item.name}}</a></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{item.name}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item"  routerLink="#" (click)="storage.linkClick('player', item.id)">Info</a>
+                                    <a class="dropdown-item" href="#">Fire Player</a>
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td><a routerLink="#" (click)="storage.linkClick('player', item.id)">{{item.name}}</a></td> -->
                         <td>{{item.age}}</td>
                         <td>{{item.overall}}</td>
                         <td>{{item.national}}</td>

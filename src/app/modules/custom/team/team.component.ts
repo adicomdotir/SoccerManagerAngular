@@ -18,7 +18,9 @@ export class TeamComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.storage.getUser();
-        this.players = this.storage.getPlayers().filter(x => x.teamId == this.user.selectedTeamId);
+        this.players = this.storage.getPlayers()
+                                    .filter(x => x.teamId == this.user.selectedTeamId)
+                                    .filter(x => x.retired == false);
         this.players.forEach(x => {
             this.averageAge += x.age;
             this.overall += x.overall;

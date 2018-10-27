@@ -32,6 +32,10 @@ export class StorageService {
         return JSON.parse(this.decrypt('players'));
     }
 
+    getRetiredPlayer(): Player[] {
+        return JSON.parse(this.decrypt('players')).filter(x => x.retired == true);
+    }
+
     setTeams(teams: Team[]) {
         this.encrypt('teams', JSON.stringify(teams));
     }

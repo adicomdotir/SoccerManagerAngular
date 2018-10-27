@@ -4,11 +4,17 @@ import { Match } from "../shared/model/match";
 import { Player } from "../shared/model/player";
 import { Score } from "../shared/model/score";
 import * as DATA from "../config/localdata";
+import { User } from "../shared/model/user";
+import { Table } from "../shared/model/table";
 
 @Injectable()
 export class GameService {
+    size: number;
 
-    constructor(private storageService: StorageService) { }
+    constructor(private storageService: StorageService) { 
+        let user: User = storageService.getUser();
+        this.size = user.size;
+    }
 
     gameCycle() {
         const matches: Match[] = this.storageService.getMatches();
@@ -88,7 +94,7 @@ export class GameService {
         players.map(p => {
             p.age += 1;
         });
-        const retireds = players.filter(x => x.age > 36);
+        const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);
         for (const item of retireds) {
             item.retired = true;
             const pl = new Player();
@@ -109,6 +115,14 @@ export class GameService {
             players.push(pl);
         }
         this.storageService.setPlayers(players);
+        this.generateMatches();
+        this.generateTable();
+        this.resetScores();
+        this.gameCycle();
+    }
+
+    resetScores() {
+        this.storageService.setScores([]);
     }
 
     private selectPlayers(customPlayers: Player[]): Player[] {
@@ -212,6 +226,43 @@ export class GameService {
                     }
                 }
             }
+        }
+        this.storageService.setTable(table);
+    }
+
+    generateMatches() {
+        const temp: number[] = [];
+        const matches: Match[] = [];
+        for (let i = 1; i <= this.size; i++) {
+            temp.push(i);
+        }
+        // Week 
+        for (let i = 1; i <= (this.size - 1) * 2; i++) {
+            // Match
+            for (let j = 0; j < this.size / 2; j++) {
+                const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
+                matches.push(matchTemp);
+            }
+            this.swapWeek(temp);
+        }
+        this.storageService.setMatches(matches);
+    }
+
+    swapWeek(temp: number[]) {
+        let lastTeamId = temp[this.size - 1];
+        for (let i = this.size - 1; i > 0; i--) {
+            temp[i] = temp[i - 1];
+        }
+        temp[1] = lastTeamId;
+    }
+
+    generateTable() {
+        const table: Table[] = [];
+        for (let i = 1; i <= this.size; i++) {
+            const temp = new Table();
+            temp.id = table.length + 1;
+            temp.teamId = i;
+            table.push(temp);
         }
         this.storageService.setTable(table);
     }

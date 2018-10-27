@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
         }
         this.table = this.storage.getTable();
         this.matches = this.storage.getMatches().filter(x => x.week === 1);
-        this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall).slice(0, 5);     
+        this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall)
+                                    .filter(x => x.retired == false).slice(0, 5);     
         this.calculateTopScorer();
     }
 
