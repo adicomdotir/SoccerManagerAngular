@@ -28,19 +28,23 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-            <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a></h3></label>
-            <select class="form-control" id="fixture" (change)="fixtureChange($event.target.value)">
-                <option *ngFor="let item of counter(user.size); let i = index" value="{{i + 1}}">Week {{i + 1}}</option>
-            </select>
-            <ng-container class="row" *ngFor="let item of matches">
-                <div class="col-md-4 text-center">{{storage.getTeamName(item.homeTeamId)}}</div>
-                <div class="col-md-4 text-center">
-                    <a routerLink="#" (click)="storage.linkClick('score', item.id)">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a>
-                </div>
-                <div class="col-md-4 text-center">{{storage.getTeamName(item.awayTeamId)}}</div>
-            </ng-container>
-        </div>
+        <form>
+            <div class="form-group">
+                <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a></h3></label>
+                <select class="form-control" id="fixture" (change)="fixtureChange($event.target.value)">
+                    <option *ngFor="let item of counter(user.size); let i = index" value="{{i + 1}}">Week {{i + 1}}</option>
+                </select>
+            </div>
+            <div class="row">
+                <ng-container *ngFor="let item of matches">
+                    <div class="col-md-4 text-center">{{storage.getTeamName(item.homeTeamId)}}</div>
+                    <div class="col-md-4 text-center">
+                        <a routerLink="#" (click)="storage.linkClick('score', item.id)">{{item.homeTeamGoal}} - {{item.awayTeamGoal}}</a>
+                    </div>
+                    <div class="col-md-4 text-center">{{storage.getTeamName(item.awayTeamId)}}</div>
+                </ng-container>
+            </div>
+        </form>
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-5 text-center">
@@ -84,3 +88,5 @@
         </div>
     </div>
 </div>
+
+<a class="btn btn-danger" routerLink="#" (click)="gameService.NewSeason()">New Season</a>

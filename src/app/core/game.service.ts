@@ -3,6 +3,7 @@ import { StorageService } from "./storage.service";
 import { Match } from "../shared/model/match";
 import { Player } from "../shared/model/player";
 import { Score } from "../shared/model/score";
+import * as DATA from "../config/localdata";
 
 @Injectable()
 export class GameService {
@@ -22,7 +23,7 @@ export class GameService {
             let awayPlayers = players.filter(p => p.teamId === awayTeamId);
             awayPlayers = this.selectPlayers(awayPlayers);
             let homeGoal = 0, awayGoal = 0;
-            const homeGK = this.selectGoalkeeper(homePlayers);            
+            const homeGK = this.selectGoalkeeper(homePlayers);
             homeGK.playedGK++;
             const awayGK = this.selectGoalkeeper(awayPlayers);
             awayGK.playedGK++;
@@ -82,6 +83,34 @@ export class GameService {
         this.storageService.setScores(scores);
     }
 
+    NewSeason() {
+        let players = this.storageService.getPlayers();
+        players.map(p => {
+            p.age += 1;
+        });
+        const retireds = players.filter(x => x.age > 36);
+        for (const item of retireds) {
+            item.retired = true;
+            const pl = new Player();
+            pl.id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
+            const fn = Math.floor(Math.random() * DATA.firstName.length);
+            const ln = Math.floor(Math.random() * DATA.lastName.length);
+            pl.name = DATA.firstName[fn] + ' ' + DATA.lastName[ln];
+            pl.age = 18;
+            pl.attack = Math.floor(Math.random() * 20) + 1;
+            pl.defend = Math.floor(Math.random() * 20) + 1;
+            pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
+            pl.finish = Math.floor(Math.random() * 20) + 1;
+            pl.morale = 4;
+            pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
+            pl.teamId = item.teamId;
+            pl.national = DATA.countries[Math.floor(Math.random() * DATA.countries.length)];
+            pl.number = Math.floor(Math.random() * 99) + 1;
+            players.push(pl);
+        }
+        this.storageService.setPlayers(players);
+    }
+
     private selectPlayers(customPlayers: Player[]): Player[] {
         return customPlayers.sort((b, a) => {
             return (a.attack + a.finish) - (b.attack + b.finish)
@@ -90,9 +119,10 @@ export class GameService {
 
     private selectGoalkeeper(customPlayers: Player[]): Player {
         const newArray = customPlayers.map(a => Object.assign({}, a));
-        return newArray.sort((b, a) => {
+        const temp = newArray.sort((b, a) => {
             return (a.goalkeeper + a.defend) - (b.goalkeeper + b.defend)
         })[0];
+        return customPlayers.filter(x => x.id == temp.id)[0];
     }
 
     private updateTable(match: Match) {

@@ -15,5 +15,5 @@ export class Player {
     playedGK: number = 0;
     scored: number = 0;
     conceded: number = 0;
-
+    retired: boolean = false;
 }

@@ -1,7 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
-@import url('https://fonts.googleapis.com/css?family=Bitter');
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
 body, html {
-    font-family: 'Bitter', serif;
+    font-family: 'Merriweather', serif;
+    /* font-family: 'Comfortaa', serif; */
 }
 
 body {
