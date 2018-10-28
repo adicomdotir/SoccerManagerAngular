@@ -1,9 +1,14 @@
 <div class="container">
     <div class="col-md-8">
         <table class="table">
+            <tr *ngIf="player.retired">
+                <td colspan="2">
+                    <h2 style="color: rgb(255, 41, 41)">{{getRetired(player.retired)}}</h2>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2">
-                    <h2 style="color: #3B3833">{{player.number}}. {{player.name}}</h2>
+                    <h2 style="color: #3B3833">{{player.number}}. {{player.name}} {{getRetired(player.retired)}}</h2>
                 </td>
             </tr>
             <tr>

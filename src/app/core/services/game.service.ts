@@ -25,9 +25,9 @@ export class GameService {
             const homeTeamId = match.homeTeamId;
             const awayTeamId = match.awayTeamId;
             let homePlayers = players.filter(p => p.teamId === homeTeamId);
-            homePlayers = this.selectPlayers(homePlayers);
+            homePlayers = this.selectPlayers(homePlayers).filter(x => x.retired == false);
             let awayPlayers = players.filter(p => p.teamId === awayTeamId);
-            awayPlayers = this.selectPlayers(awayPlayers);
+            awayPlayers = this.selectPlayers(awayPlayers).filter(x => x.retired == false);
             let homeGoal = 0, awayGoal = 0;
             const homeGK = this.selectGoalkeeper(homePlayers);
             homeGK.playedGK++;
@@ -132,7 +132,8 @@ export class GameService {
     }
 
     private selectGoalkeeper(customPlayers: Player[]): Player {
-        const newArray = customPlayers.map(a => Object.assign({}, a));
+        let newArray = customPlayers.map(a => Object.assign({}, a));
+        newArray = newArray.filter(x => x.retired == false);
         const temp = newArray.sort((b, a) => {
             return (a.goalkeeper + a.defend) - (b.goalkeeper + b.defend)
         })[0];

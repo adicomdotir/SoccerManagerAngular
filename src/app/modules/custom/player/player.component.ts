@@ -34,4 +34,8 @@ export class PlayerComponent implements OnInit {
         return '#' + RR + GG + BB;
     }
 
+    getRetired(retired) {
+        return (retired == true ? 'RETIRED' : '');
+    }
+
 }
