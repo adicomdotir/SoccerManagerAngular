@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { StorageService } from "./storage.service";
-import { Match } from "../shared/model/match";
-import { Player } from "../shared/model/player";
-import { Score } from "../shared/model/score";
-import * as DATA from "../config/localdata";
-import { User } from "../shared/model/user";
-import { Table } from "../shared/model/table";
+import { Match } from "../../shared/model/match";
+import { Player } from "../../shared/model/player";
+import { Score } from "../../shared/model/score";
+import * as DATA from "../../config/localdata";
+import { User } from "../../shared/model/user";
+import { Table } from "../../shared/model/table";
 
 @Injectable()
 export class GameService {

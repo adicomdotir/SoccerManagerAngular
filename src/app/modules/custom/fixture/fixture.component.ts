@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../../../core/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 import { Match } from '../../../shared/model/match';
 
 @Component({

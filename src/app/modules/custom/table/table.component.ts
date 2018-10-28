@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from '../../../shared/model/table';
-import { StorageService } from '../../../core/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 
 @Component({
     selector: 'app-table',

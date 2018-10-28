@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from '../../../core/game.service';
+import { GameService } from '../../../core/services/game.service';
 import { Table } from '../../../shared/model/table';
-import { StorageService } from '../../../core/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
 import { TopScorer } from '../../../shared/model/topscorer';

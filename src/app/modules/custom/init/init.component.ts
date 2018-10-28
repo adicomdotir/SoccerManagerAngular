@@ -5,7 +5,7 @@ import { Team } from '../../../shared/model/team';
 import { Player } from '../../../shared/model/player';
 import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
-import { StorageService } from '../../../core/storage.service';
+import { StorageService } from '../../../core/services/storage.service';
 import { Table } from '../../../shared/model/table';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Player } from "../shared/model/player";
-import { Team } from "../shared/model/team";
-import { Match } from "../shared/model/match";
-import { Table } from "../shared/model/table";
-import { Score } from "../shared/model/score";
-import { User } from "../shared/model/user";
+import { Player } from "../../shared/model/player";
+import { Team } from "../../shared/model/team";
+import { Match } from "../../shared/model/match";
+import { Table } from "../../shared/model/table";
+import { Score } from "../../shared/model/score";
+import { User } from "../../shared/model/user";
 import { Router } from "@angular/router";
 import * as crypto from "crypto-js";
 
