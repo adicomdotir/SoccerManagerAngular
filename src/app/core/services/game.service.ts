@@ -6,10 +6,14 @@ import { Score } from "../../shared/model/score";
 import * as DATA from "../../config/localdata";
 import { User } from "../../shared/model/user";
 import { Table } from "../../shared/model/table";
+import { Subject } from "rxjs";
 
 @Injectable()
 export class GameService {
     size: number;
+
+    newSeasonSubject = new Subject();
+    $newSeasonSubject = this.newSeasonSubject.asObservable();
 
     constructor(private storageService: StorageService) { 
         let user: User = storageService.getUser();
@@ -94,6 +98,10 @@ export class GameService {
     }
 
     NewSeason() {
+        const user = this.storageService.getUser();
+        user.season++;
+        this.storageService.setUser(user);
+        this.newSeasonSubject.next();
         let players = this.storageService.getPlayers();
         players.map(p => {
             p.age += 1;

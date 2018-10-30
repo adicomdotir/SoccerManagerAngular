@@ -41,6 +41,7 @@ export class InitComponent implements OnInit {
         user.teamId = this.selectedTeam;
         user.size = this.size;
         user.status = 'start';
+        user.season = 1;
         this.storageService.setUser(user);
 
         this.router.navigateByUrl('/home');
