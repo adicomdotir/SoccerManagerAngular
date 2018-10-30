@@ -49,12 +49,14 @@ export class GameService {
                     awayGK.conceded++;
                     //
                     homeGoal++;
-                    const score = new Score(scores.length + 1, match.id, homePlayer.id);
+                    const score = new Score(scores.length + 1, match.id, homePlayer.id, true);
                     scores.push(score);
                 } else {
                     if (homePlayer.morale > 0 && homePlayer.morale < 8) {
                         homePlayer.morale--;
                     }
+                    const score = new Score(scores.length + 1, match.id, homePlayer.id);
+                    scores.push(score);
                 }
                 const awayPlayer = awayPlayers[j];
                 //
@@ -71,12 +73,14 @@ export class GameService {
                     homeGK.conceded++;
                     //
                     awayGoal++;
-                    const score = new Score(scores.length + 1, match.id, awayPlayer.id);
+                    const score = new Score(scores.length + 1, match.id, awayPlayer.id, true);
                     scores.push(score);
                 } else {
                     if (awayPlayer.morale > 0 && awayPlayer.morale < 8) {
                         awayPlayer.morale--;
                     }
+                    const score = new Score(scores.length + 1, match.id, awayPlayer.id);
+                    scores.push(score);
                 }
             }
             match.homeTeamGoal = homeGoal;

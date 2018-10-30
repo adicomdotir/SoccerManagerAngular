@@ -22,4 +22,11 @@ export class ScoreComponent implements OnInit {
         return this.storage.getTeamName(player.teamId);
     }
 
+    getIcon(score) {
+        if (score == true)
+            return 'assets/images/scored.png';
+        else
+        return 'assets/images/missed.png';
+    }
+
 }

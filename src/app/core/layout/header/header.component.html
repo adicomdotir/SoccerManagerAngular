@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" routerLink="#" routerLinkActive="active" (click)="storage.linkClick('home')">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" routerLink="" (click)="storage.linkClick('home')">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  routerLink="#" (click)="gameService.NewSeason()">New Season</a>
+                <a class="nav-link"  routerLink="/home" (click)="gameService.NewSeason()">New Season</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link disabled" href="/">Play</a>
@@ -19,9 +19,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">GameMenu</a>
                 <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item" routerLinkActive="active" routerLink="" (click)="storage.linkClick('table')">Table</a>
-                    <a class="dropdown-item" routerLinkActive="active" routerLink="" (click)="storage.linkClick('topscorer')">Topscorer</a>
-                    <a class="dropdown-item" routerLinkActive="active" routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a>
+                    <a class="dropdown-item" routerLink="" (click)="storage.linkClick('table')">Table</a>
+                    <a class="dropdown-item" routerLink="" (click)="storage.linkClick('topscorer')">Topscorer</a>
+                    <a class="dropdown-item" routerLink="" (click)="storage.linkClick('fixture')">Fixture</a>
                 </div>
             </li>
         </ul>

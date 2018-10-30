@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
     }
 
     calculateTopScorer() {
-        const scores = this.storage.getScores();
+        const scores = this.storage.getScores().filter(x => x.score == true);
         for (let i = 0; i < scores.length; i++) {
             const score = scores[i];
             if (this.topScorer.filter(x => x.playerId == score.playerId).length == 0) {
