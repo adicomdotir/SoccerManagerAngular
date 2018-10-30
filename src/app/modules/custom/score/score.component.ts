@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../core/services/storage.service';
 import { Score } from '../../../shared/model/score';
+import { Match } from '../../../shared/model/match';
 
 @Component({
     selector: 'app-score',
@@ -9,12 +10,14 @@ import { Score } from '../../../shared/model/score';
 })
 export class ScoreComponent implements OnInit {
     scores: Score[];
+    match: Match;
 
     constructor(private storage: StorageService) { }
 
     ngOnInit() {
         const user = this.storage.getUser();
         this.scores = this.storage.getScores().filter(x => x.matchId == user.selectedMatchId);
+        this.match = this.storage.getMatches().filter(x => x.id == user.selectedMatchId)[0];
     }
 
     getPlayerTeam(id) {
@@ -26,7 +29,7 @@ export class ScoreComponent implements OnInit {
         if (score == true)
             return 'assets/images/scored.png';
         else
-        return 'assets/images/missed.png';
+            return 'assets/images/missed.png';
     }
 
 }

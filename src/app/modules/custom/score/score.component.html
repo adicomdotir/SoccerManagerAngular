@@ -1,21 +1,25 @@
 <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Player Name</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of scores; let i = index">
-                            <th scope="row">{{i + 1}}</th>
-                            <td><a routerLink="#" (click)="storage.linkClick('player', item.playerId)">{{storage.getPlayerName(item.playerId)}}</a> [{{getPlayerTeam(item.playerId)}}]  </td>
-                            <td><img src="{{getIcon(item.score)}}"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="text-center">
+        <h4>{{storage.getTeamName(match.homeTeamId)}} {{match.homeTeamGoal}}-{{match.awayTeamGoal}} {{storage.getTeamName(match.awayTeamId)}}</h4>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Player Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of scores; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td><a routerLink="#" (click)="storage.linkClick('player', item.playerId)">{{storage.getPlayerName(item.playerId)}}</a>
+                            [{{getPlayerTeam(item.playerId)}}] </td>
+                        <td><img src="{{getIcon(item.score)}}"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
