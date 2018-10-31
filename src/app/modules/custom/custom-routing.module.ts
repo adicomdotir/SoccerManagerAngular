@@ -9,6 +9,7 @@ import { ScoreComponent } from './score/score.component';
 import { TeamComponent } from './team/team.component';
 import { TopscorerComponent } from './topscorer/topscorer.component';
 import { PlayerHistoryComponent } from './playerhistory/playerhistory.component';
+import { NationalComponent } from './national/national.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,9 @@ const routes: Routes = [
     },
     {
         path: 'playerhistory', component: PlayerHistoryComponent
+    },
+    {
+        path: 'national', component: NationalComponent
     }
 ];
 
