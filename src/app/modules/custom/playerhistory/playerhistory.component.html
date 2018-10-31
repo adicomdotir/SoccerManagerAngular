@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Season</th>
+                        <th scope="col">Player Played</th>
+                        <th scope="col">Scored</th>
+                        <th scope="col">GK Played</th>
+                        <th scope="col">Conceded</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of playerhistory; let i = index">
+                        <td>{{item.season}}</td>
+                        <td>{{item.playedPlayer}}</td>
+                        <td>{{item.scored}}</td>
+                        <td>{{item.playedGK}}</td>
+                        <td>{{item.conceded}}</td>
+                    </tr>
+                    <tr>
+                        <td>All Season</td>
+                        <td>{{allPlayedPlayer}}</td>
+                        <td>{{allScored}}</td>
+                        <td>{{allPlayedGK}}</td>
+                        <td>{{allConceded}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

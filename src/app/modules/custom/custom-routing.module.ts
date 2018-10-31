@@ -8,6 +8,7 @@ import { PlayerComponent } from './player/player.component';
 import { ScoreComponent } from './score/score.component';
 import { TeamComponent } from './team/team.component';
 import { TopscorerComponent } from './topscorer/topscorer.component';
+import { PlayerHistoryComponent } from './playerhistory/playerhistory.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,9 @@ const routes: Routes = [
     },
     {
         path: 'topscorer', component: TopscorerComponent
+    },
+    {
+        path: 'playerhistory', component: PlayerHistoryComponent
     }
 ];
 

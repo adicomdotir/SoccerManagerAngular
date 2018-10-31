@@ -5,6 +5,7 @@ import { Match } from "../../shared/model/match";
 import { Table } from "../../shared/model/table";
 import { Score } from "../../shared/model/score";
 import { User } from "../../shared/model/user";
+import { PlayerHistory } from "../../shared/model/playerHistory";
 import { Router } from "@angular/router";
 import * as crypto from "crypto-js";
 
@@ -68,6 +69,14 @@ export class StorageService {
         return JSON.parse(this.decrypt('scores'));
     }
 
+    setPlayerHistories(playerhistories: PlayerHistory[]) {
+        this.encrypt('playerhistories', JSON.stringify(playerhistories));
+    }
+
+    getPlayerHistories(): PlayerHistory[] {
+        return JSON.parse(this.decrypt('playerhistories'));
+    }
+
     getUser() {
         let user: User = null;
         try {
@@ -109,6 +118,11 @@ export class StorageService {
                 this.setUser(user);
                 break;
             case 'player':
+                user = this.getUser();
+                user.selectedPlayerId = id;
+                this.setUser(user);
+                break;
+            case 'playerhistory':
                 user = this.getUser();
                 user.selectedPlayerId = id;
                 this.setUser(user);

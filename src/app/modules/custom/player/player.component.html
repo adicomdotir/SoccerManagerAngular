@@ -48,12 +48,12 @@
                     <h4 style="color: #50514F">Team: {{storage.getTeamName(player.teamId)}}</h4>
                 </td>
                 <td>
-                    <h4 style="color: rgb(67, 78, 55)">National : {{player.national}}</h4>
+                    <h4 style="color: rgb(67, 78, 55)">National: {{player.national}}</h4>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <h4 style="color: #071E22   ">Played Player: {{player.playedPlayer}}</h4>
+                    <h4 style="color: #071E22">Played Player: {{player.playedPlayer}}</h4>
                 </td>
                 <td>
                     <h4 style="color: #679289">Scored: {{player.scored}}</h4>
@@ -65,6 +65,11 @@
                 </td>
                 <td>
                     <h4 style="color: #1D7874">Conceded: {{player.conceded}}</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h4><a routerLink="#" (click)="storage.linkClick('playerhistory', player.id)">Player History</a></h4>
                 </td>
             </tr>
         </table>

@@ -10,6 +10,7 @@ import { ScoreComponent } from './score/score.component';
 import { PlayerComponent } from './player/player.component';
 import { TeamComponent } from './team/team.component';
 import { TopscorerComponent } from './topscorer/topscorer.component';
+import { PlayerHistoryComponent } from './playerhistory/playerhistory.component';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import { TopscorerComponent } from './topscorer/topscorer.component';
         ScoreComponent,
         PlayerComponent,
         TeamComponent,
-        TopscorerComponent
+        TopscorerComponent,
+        PlayerHistoryComponent
     ]
 })
 export class CustomModule { }

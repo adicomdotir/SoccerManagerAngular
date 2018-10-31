@@ -36,6 +36,7 @@ export class InitComponent implements OnInit {
         this.generatePlayers();
         this.generateMatches();
         this.generateTable();
+        this.storageService.setPlayerHistories([]);
 
         let user: User = this.storageService.getUser();
         user.teamId = this.selectedTeam;

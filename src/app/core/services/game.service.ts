@@ -7,6 +7,7 @@ import * as DATA from "../../config/localdata";
 import { User } from "../../shared/model/user";
 import { Table } from "../../shared/model/table";
 import { Subject } from "rxjs";
+import { PlayerHistory } from "../../shared/model/playerHistory";
 
 @Injectable()
 export class GameService {
@@ -98,6 +99,7 @@ export class GameService {
     }
 
     NewSeason() {
+        const playerHistories = this.storageService.getPlayerHistories();
         const user = this.storageService.getUser();
         user.season++;
         this.storageService.setUser(user);
@@ -108,7 +110,21 @@ export class GameService {
             if (p.experience < 8) {
                 p.experience += 1;
             }
+            const ph = new PlayerHistory();
+            ph.id = playerHistories.length + 1;
+            ph.season = user.season - 1;
+            ph.playerId = p.id;
+            ph.playedGK = p.playedGK;
+            ph.playedPlayer = p.playedPlayer;
+            ph.scored = p.scored;
+            ph.conceded = p.conceded;
+            p.playedGK = 0;
+            p.playedPlayer = 0;
+            p.scored = 0;
+            p.conceded = 0;
+            playerHistories.push(ph);
         });
+        this.storageService.setPlayerHistories(playerHistories);
         const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);
         for (const item of retireds) {
             item.retired = true;
