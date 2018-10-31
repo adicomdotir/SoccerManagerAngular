@@ -15,7 +15,7 @@ export class GameService {
     newSeasonSubject = new Subject();
     $newSeasonSubject = this.newSeasonSubject.asObservable();
 
-    constructor(private storageService: StorageService) { 
+    constructor(private storageService: StorageService) {
         let user: User = storageService.getUser();
         this.size = user.size;
     }
@@ -42,8 +42,8 @@ export class GameService {
                 //
                 homePlayer.playedPlayer++;
                 //
-                let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale;
-                let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale;
+                let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale + homePlayer.experience;
+                let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale + awayGK.experience;
                 if (homeScore > awayScore) {
                     //
                     homePlayer.scored++;
@@ -66,8 +66,8 @@ export class GameService {
                 //
                 awayPlayer.playedPlayer++;
                 //
-                homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale;
-                awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale;
+                homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale + homeGK.experience;
+                awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale + awayPlayer.experience;
                 if (homeScore < awayScore) {
                     //
                     awayPlayer.scored++;
@@ -105,6 +105,9 @@ export class GameService {
         let players = this.storageService.getPlayers();
         players.map(p => {
             p.age += 1;
+            if (p.experience < 8) {
+                p.experience += 1;
+            }
         });
         const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);
         for (const item of retireds) {
@@ -123,7 +126,8 @@ export class GameService {
             pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
             pl.teamId = item.teamId;
             pl.national = DATA.countries[Math.floor(Math.random() * DATA.countries.length)];
-            pl.number = Math.floor(Math.random() * 99) + 1;
+            let number = Math.floor(Math.random() * 99) + 1;
+            pl.number = number;
             players.push(pl);
         }
         this.storageService.setPlayers(players);
