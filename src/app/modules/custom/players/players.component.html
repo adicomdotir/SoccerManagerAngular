@@ -1,0 +1,25 @@
+<div class="container">
+    <h3>All Players</h3>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Overral</th>
+                    <th scope="col">Retired</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of players; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td><a routerLink="#" (click)="storage.linkClick('player', item.id)">{{item.name}}</a></td>
+                    <td>{{item.age}}</td>
+                    <td>{{item.overall}}</td>
+                    <td>{{item.retired == true ? 'Retired' : 'NO'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

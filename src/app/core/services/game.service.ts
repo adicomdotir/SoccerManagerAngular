@@ -119,19 +119,22 @@ export class GameService {
         let players = this.storageService.getPlayers();
         players.map(p => {
             p.age += 1;
-            const ph = new PlayerHistory();
-            ph.id = playerHistories.length + 1;
-            ph.season = user.season - 1;
-            ph.playerId = p.id;
-            ph.playedGK = p.playedGK;
-            ph.playedPlayer = p.playedPlayer;
-            ph.scored = p.scored;
-            ph.conceded = p.conceded;
-            p.playedGK = 0;
-            p.playedPlayer = 0;
-            p.scored = 0;
-            p.conceded = 0;
-            playerHistories.push(ph);
+            if (p.retired == false) {
+
+                const ph = new PlayerHistory();
+                ph.id = playerHistories.length + 1;
+                ph.season = user.season - 1;
+                ph.playerId = p.id;
+                ph.playedGK = p.playedGK;
+                ph.playedPlayer = p.playedPlayer;
+                ph.scored = p.scored;
+                ph.conceded = p.conceded;
+                p.playedGK = 0;
+                p.playedPlayer = 0;
+                p.scored = 0;
+                p.conceded = 0;
+                playerHistories.push(ph);
+            }
         });
         this.storageService.setPlayerHistories(playerHistories);
         const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);

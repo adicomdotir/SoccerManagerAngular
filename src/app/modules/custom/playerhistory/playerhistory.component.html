@@ -21,8 +21,8 @@
                     <td>{{item.playedGK}}</td>
                     <td>{{item.conceded}}</td>
                 </tr>
-                <tr>
-                    <td>Current Season</td>
+                <tr *ngIf="!player.retired">
+                    <td>{{user.season}}</td>
                     <td>{{player.playedPlayer}}</td>
                     <td>{{player.scored}}</td>
                     <td>{{player.playedGK}}</td>

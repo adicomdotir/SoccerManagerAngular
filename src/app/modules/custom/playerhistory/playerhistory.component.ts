@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../core/services/storage.service';
 import { PlayerHistory } from '../../../shared/model/playerHistory';
 import { Player } from '../../../shared/model/player';
+import { User } from '../../../shared/model/user';
 
 @Component({
     selector: 'app-playerhistory',
@@ -15,13 +16,14 @@ export class PlayerHistoryComponent implements OnInit {
     allScored: number = 0;
     allConceded: number = 0;
     player: Player;
+    user: User;
 
     constructor(private storage: StorageService) { }
 
     ngOnInit() {
-        const user = this.storage.getUser();
-        this.player = this.storage.getPlayers().filter(x => x.id == user.selectedPlayerId)[0];
-        this.playerhistory = this.storage.getPlayerHistories().filter(x => x.playerId == user.selectedPlayerId);
+        this.user = this.storage.getUser();
+        this.player = this.storage.getPlayers().filter(x => x.id == this.user.selectedPlayerId)[0];
+        this.playerhistory = this.storage.getPlayerHistories().filter(x => x.playerId == this.user.selectedPlayerId);
         for (let index = 0; index < this.playerhistory.length; index++) {
             const element = this.playerhistory[index];
             this.allPlayedPlayer += element.playedPlayer;
