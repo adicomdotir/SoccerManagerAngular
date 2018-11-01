@@ -3,7 +3,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Season</th>
@@ -21,7 +21,7 @@
                     <td>{{item.playedGK}}</td>
                     <td>{{item.conceded}}</td>
                 </tr>
-                <tr *ngIf="!player.retired">
+                <tr *ngIf="!player.retired"  class="table-info">
                     <td>{{user.season}}</td>
                     <td>{{player.playedPlayer}}</td>
                     <td>{{player.scored}}</td>
@@ -29,11 +29,11 @@
                     <td>{{player.conceded}}</td>
                 </tr>
                 <tr>
-                    <td>All Season</td>
-                    <td>{{allPlayedPlayer}}</td>
-                    <td>{{allScored}}</td>
-                    <td>{{allPlayedGK}}</td>
-                    <td>{{allConceded}}</td>
+                    <td class="font-weight-bold">All Season</td>
+                    <td class="font-weight-bold">{{allPlayedPlayer}}</td>
+                    <td class="font-weight-bold">{{allScored}}</td>
+                    <td class="font-weight-bold">{{allPlayedGK}}</td>
+                    <td class="font-weight-bold">{{allConceded}}</td>
                 </tr>
             </tbody>
         </table>
