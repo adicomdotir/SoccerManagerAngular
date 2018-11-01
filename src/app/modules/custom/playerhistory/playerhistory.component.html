@@ -1,33 +1,41 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Season</th>
-                        <th scope="col">Player Played</th>
-                        <th scope="col">Scored</th>
-                        <th scope="col">GK Played</th>
-                        <th scope="col">Conceded</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of playerhistory; let i = index">
-                        <td>{{item.season}}</td>
-                        <td>{{item.playedPlayer}}</td>
-                        <td>{{item.scored}}</td>
-                        <td>{{item.playedGK}}</td>
-                        <td>{{item.conceded}}</td>
-                    </tr>
-                    <tr>
-                        <td>All Season</td>
-                        <td>{{allPlayedPlayer}}</td>
-                        <td>{{allScored}}</td>
-                        <td>{{allPlayedGK}}</td>
-                        <td>{{allConceded}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="text-left">
+    <h4><a routerLink="#" (click)="storage.linkClick('player', player.id)">{{player.number}}. {{storage.getPlayerName(player.id)}}</a></h4>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Season</th>
+                    <th scope="col">Player Played</th>
+                    <th scope="col">Scored</th>
+                    <th scope="col">GK Played</th>
+                    <th scope="col">Conceded</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of playerhistory; let i = index">
+                    <td>{{item.season}}</td>
+                    <td>{{item.playedPlayer}}</td>
+                    <td>{{item.scored}}</td>
+                    <td>{{item.playedGK}}</td>
+                    <td>{{item.conceded}}</td>
+                </tr>
+                <tr>
+                    <td>Current Season</td>
+                    <td>{{player.playedPlayer}}</td>
+                    <td>{{player.scored}}</td>
+                    <td>{{player.playedGK}}</td>
+                    <td>{{player.conceded}}</td>
+                </tr>
+                <tr>
+                    <td>All Season</td>
+                    <td>{{allPlayedPlayer}}</td>
+                    <td>{{allScored}}</td>
+                    <td>{{allPlayedGK}}</td>
+                    <td>{{allConceded}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

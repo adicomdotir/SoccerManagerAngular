@@ -17,4 +17,14 @@ export class NationalComponent implements OnInit {
     getPlayerCount(name) {
         return this.storage.getPlayers().filter(x => x.retired == false).filter(x => x.national == name).length;
     }
+    
+    getOverall(name) {
+        const players = this.storage.getPlayers().filter(x => x.retired == false && x.national == name);
+        let count = players.length;
+        let overall = players.reduce((total, player) => {
+            return total + player.overall
+        }, 0);
+        if (count == 0) return 0;
+        return Math.round(overall / count);
+    }
 }
