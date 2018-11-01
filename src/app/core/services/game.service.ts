@@ -36,12 +36,21 @@ export class GameService {
             let homeGoal = 0, awayGoal = 0;
             const homeGK = this.selectGoalkeeper(homePlayers);
             homeGK.playedGK++;
+            if (homeGK.experience < 8) {
+                homeGK.experience += 0.05;
+            }
             const awayGK = this.selectGoalkeeper(awayPlayers);
             awayGK.playedGK++;
+            if (awayGK.experience < 8) {
+                awayGK.experience += 0.05;
+            }
             for (let j = 0; j < 5; j++) {
                 const homePlayer = homePlayers[j];
                 //
                 homePlayer.playedPlayer++;
+                if (homePlayer.experience < 8) {
+                    homePlayer.experience += 0.05;
+                }
                 //
                 let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale + homePlayer.experience;
                 let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale + awayGK.experience;
@@ -66,6 +75,9 @@ export class GameService {
                 const awayPlayer = awayPlayers[j];
                 //
                 awayPlayer.playedPlayer++;
+                if (awayPlayer.experience < 8) {
+                    awayPlayer.experience += 0.05;
+                }
                 //
                 homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale + homeGK.experience;
                 awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale + awayPlayer.experience;
@@ -107,9 +119,6 @@ export class GameService {
         let players = this.storageService.getPlayers();
         players.map(p => {
             p.age += 1;
-            if (p.experience < 8) {
-                p.experience += 1;
-            }
             const ph = new PlayerHistory();
             ph.id = playerHistories.length + 1;
             ph.season = user.season - 1;

@@ -16,13 +16,16 @@ export class PlayerComponent implements OnInit {
     ngOnInit() {
         const user = this.storage.getUser();
         this.player = this.storage.getPlayers().filter(x => x.id == user.selectedPlayerId)[0];
+        console.log(this.player)
     }
 
     getMorale(id) {
-        return MORALES[id];
+        id = Math.floor(id);
+        return MORALES[id] + ' [' + id + ']';
     }
 
     getColor(index) {
+        index = Math.floor(index);
         let R = 256 - index * 32;
         R = R > 255 ? 255 : R;
         let G = index * 32;
