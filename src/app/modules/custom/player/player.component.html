@@ -53,6 +53,14 @@
             </tr>
             <tr>
                 <td>
+                    <h4 style="color: #50514F">Price: {{player.price | number: '2.'}} $</h4>
+                </td>
+                <td>
+                    <h4 style="color: rgb(67, 78, 55)">Salary: {{player.salary | number: '2.'}} $</h4>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <h4><a routerLink="#" (click)="storage.linkClick('playerhistory', player.id)">Player History</a></h4>
                 </td>
             </tr>

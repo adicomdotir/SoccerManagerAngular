@@ -17,4 +17,6 @@ export class Player {
     conceded: number = 0;
     retired: boolean = false;
     experience: number = 0;
+    price: number;
+    salary: number;
 }

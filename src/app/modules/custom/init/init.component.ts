@@ -7,6 +7,7 @@ import { User } from '../../../shared/model/user';
 import { Match } from '../../../shared/model/match';
 import { StorageService } from '../../../core/services/storage.service';
 import { Table } from '../../../shared/model/table';
+import { GeneratorService } from '../../../core/services/generator.service';
 
 @Component({
     selector: 'app-init',
@@ -19,7 +20,7 @@ export class InitComponent implements OnInit {
     selectedTeam: number = 1;
     size: number = 2;
 
-    constructor(private router: Router, private storageService: StorageService) { }
+    constructor(private router: Router, private storageService: StorageService, private generator: GeneratorService) { }
 
     ngOnInit(): void { }
 
@@ -106,22 +107,7 @@ export class InitComponent implements OnInit {
         const players: Player[] = [];
         for (let i = 1; i <= this.size; i++) {
             for (let j = 0; j < 12; j++) {
-                const pl = new Player();
-                pl.id = players.length + 1;
-                const fn = Math.floor(Math.random() * firstName.length);
-                const ln = Math.floor(Math.random() * lastName.length);
-                pl.name = firstName[fn] + ' ' + lastName[ln];
-                pl.age = Math.floor(Math.random() * 18) + 18;
-                pl.attack = Math.floor(Math.random() * 20) + 1;
-                pl.defend = Math.floor(Math.random() * 20) + 1;
-                pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
-                pl.finish = Math.floor(Math.random() * 20) + 1;
-                pl.morale = 4;
-                pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
-                pl.teamId = i;
-                pl.national = countries[Math.floor(Math.random() * countries.length)];
-                pl.number = Math.floor(Math.random() * 99) + 1;
-                players.push(pl);
+                players.push(this.generator.createPlayer(players.length + 1, i));
             }
         }
         this.storageService.setPlayers(players);

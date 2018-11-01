@@ -8,6 +8,7 @@ import { User } from "../../shared/model/user";
 import { Table } from "../../shared/model/table";
 import { Subject } from "rxjs";
 import { PlayerHistory } from "../../shared/model/playerHistory";
+import { GeneratorService } from "./generator.service";
 
 @Injectable()
 export class GameService {
@@ -16,7 +17,7 @@ export class GameService {
     newSeasonSubject = new Subject();
     $newSeasonSubject = this.newSeasonSubject.asObservable();
 
-    constructor(private storageService: StorageService) {
+    constructor(private storageService: StorageService, private generator: GeneratorService) {
         let user: User = storageService.getUser();
         this.size = user.size;
     }
@@ -140,22 +141,10 @@ export class GameService {
         const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);
         for (const item of retireds) {
             item.retired = true;
-            const pl = new Player();
-            pl.id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
-            const fn = Math.floor(Math.random() * DATA.firstName.length);
-            const ln = Math.floor(Math.random() * DATA.lastName.length);
-            pl.name = DATA.firstName[fn] + ' ' + DATA.lastName[ln];
+            let id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
+            const pl = this.generator.createPlayer(id, item.teamId);
             pl.age = 18;
-            pl.attack = Math.floor(Math.random() * 20) + 1;
-            pl.defend = Math.floor(Math.random() * 20) + 1;
-            pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
-            pl.finish = Math.floor(Math.random() * 20) + 1;
             pl.morale = 4;
-            pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
-            pl.teamId = item.teamId;
-            pl.national = DATA.countries[Math.floor(Math.random() * DATA.countries.length)];
-            let number = Math.floor(Math.random() * 99) + 1;
-            pl.number = number;
             players.push(pl);
         }
         this.storageService.setPlayers(players);
