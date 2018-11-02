@@ -119,9 +119,20 @@ export class GameService {
         this.newSeasonSubject.next();
         let players = this.storageService.getPlayers();
         players.map(p => {
-            p.age += 1;
-            if (p.retired == false) {
+            if (p.age > 30) {
+                console.log('aged');
 
+                p.attack = (p.attack > 0) ? p.attack -= 1 : 0;
+                p.defend = (p.defend > 0) ? p.defend -= 1 : 0;
+                p.finish = (p.finish > 0) ? p.finish -= 1 : 0;
+                p.goalkeeper = (p.goalkeeper > 0) ? p.goalkeeper -= 1 : 0;
+                p.overall = p.attack + p.defend + p.finish + p.goalkeeper;
+            }
+            p.age += 1;
+            p.salary = this.generator.calculateSalary(p.overall, p.age);
+            p.price = this.generator.calculatePrice(p.overall, p.age);
+
+            if (p.retired == false) {
                 const ph = new PlayerHistory();
                 ph.id = playerHistories.length + 1;
                 ph.season = user.season - 1;
@@ -142,9 +153,7 @@ export class GameService {
         for (const item of retireds) {
             item.retired = true;
             let id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
-            const pl = this.generator.createPlayer(id, item.teamId);
-            pl.age = 18;
-            pl.morale = 4;
+            const pl = this.generator.createPlayer(id, item.teamId, true);
             players.push(pl);
         }
         this.storageService.setPlayers(players);

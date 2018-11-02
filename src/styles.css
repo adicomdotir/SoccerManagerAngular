@@ -1,8 +1,8 @@
 @import "~bootstrap/dist/css/bootstrap.css";
-@import url('https://fonts.googleapis.com/css?family=Comfortaa');
+@import url('https://fonts.googleapis.com/css?family=Kreon');
 body, html {
     /* font-family: 'Merriweather', serif; */
-    font-family: 'Comfortaa', serif;
+    font-family: 'Kreon', serif;
 }
 
 body {
