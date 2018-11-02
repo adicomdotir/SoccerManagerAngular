@@ -6,4 +6,5 @@ export class PlayerHistory {
     playedGK: number = 0;
     scored: number = 0;
     conceded: number = 0;
+    teamId: number;
 }

@@ -30,7 +30,11 @@ export class GeneratorService {
     }
 
     calculatePrice(overall, age) {
-        return Math.floor(overall * 1000000 * (18 / age) * (18 / age));
+        if (age >= 29 && age <= 31)
+            return Math.floor(overall * 1000000 * (18 / age));
+        else if (age >= 32)
+            return Math.floor(overall * 1000000 * (18 / age) * (18 / age));
+        else return Math.floor(overall * 1000000);
     }
 
     calculateSalary(overall, age) {

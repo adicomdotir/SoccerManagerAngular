@@ -6,6 +6,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    <th scope="col">Team</th>
                     <th scope="col">Season</th>
                     <th scope="col">Player Played</th>
                     <th scope="col">Scored</th>
@@ -15,6 +16,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let item of playerhistory; let i = index">
+                    <td>{{storage.getTeamName(item.teamId)}}</td>
                     <td>{{item.season}}</td>
                     <td>{{item.playedPlayer}}</td>
                     <td>{{item.scored}}</td>
@@ -22,6 +24,7 @@
                     <td>{{item.conceded}}</td>
                 </tr>
                 <tr *ngIf="!player.retired"  class="table-info">
+                    <td>{{storage.getTeamName(player.teamId)}}</td>
                     <td>{{user.season}}</td>
                     <td>{{player.playedPlayer}}</td>
                     <td>{{player.scored}}</td>
@@ -29,6 +32,7 @@
                     <td>{{player.conceded}}</td>
                 </tr>
                 <tr>
+                    <td class="font-weight-bold"></td>
                     <td class="font-weight-bold">All Season</td>
                     <td class="font-weight-bold">{{allPlayedPlayer}}</td>
                     <td class="font-weight-bold">{{allScored}}</td>

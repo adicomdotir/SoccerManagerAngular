@@ -120,8 +120,6 @@ export class GameService {
         let players = this.storageService.getPlayers();
         players.map(p => {
             if (p.age > 30) {
-                console.log('aged');
-
                 p.attack = (p.attack > 0) ? p.attack -= 1 : 0;
                 p.defend = (p.defend > 0) ? p.defend -= 1 : 0;
                 p.finish = (p.finish > 0) ? p.finish -= 1 : 0;
@@ -141,6 +139,7 @@ export class GameService {
                 ph.playedPlayer = p.playedPlayer;
                 ph.scored = p.scored;
                 ph.conceded = p.conceded;
+                ph.teamId = p.teamId;
                 p.playedGK = 0;
                 p.playedPlayer = 0;
                 p.scored = 0;
@@ -152,6 +151,8 @@ export class GameService {
         const retireds = players.filter(x => x.age > 36).filter(x => x.retired == false);
         for (const item of retireds) {
             item.retired = true;
+            item.salary = 0;
+            item.price = 0;
             let id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
             const pl = this.generator.createPlayer(id, item.teamId, true);
             players.push(pl);
