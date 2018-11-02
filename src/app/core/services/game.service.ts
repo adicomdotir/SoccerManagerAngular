@@ -114,6 +114,8 @@ export class GameService {
     NewSeason() {
         const playerHistories = this.storageService.getPlayerHistories();
         const user = this.storageService.getUser();
+        const teams = this.storageService.getTeams();
+
         user.season++;
         this.storageService.setUser(user);
         this.newSeasonSubject.next();
@@ -153,11 +155,18 @@ export class GameService {
             item.retired = true;
             item.salary = 0;
             item.price = 0;
+            const numbers = teams[item.teamId - 1].shirtNumber;
+            const i = numbers.indexOf(item.number);
+            numbers.splice(i, 1);
+            item.number = -1;
             let id = Math.max.apply(Math, players.map((o) => { return o.id; })) + 1;
             const pl = this.generator.createPlayer(id, item.teamId, true);
             players.push(pl);
         }
         this.storageService.setPlayers(players);
+        this.storageService.setTeams(teams);
+        console.log(teams)
+
         this.calculateBudget();
         this.generateMatches();
         this.generateTable();

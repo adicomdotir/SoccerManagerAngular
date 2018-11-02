@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Player } from '../../shared/model/player';
 import { firstName, lastName, countries } from '../../config/localdata';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class GeneratorService {
 
-    constructor() { }
+    constructor(private storage: StorageService) { }
 
     createPlayer(id, teamId, youth = false): Player {
         const pl = new Player();
@@ -24,6 +25,10 @@ export class GeneratorService {
         pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
         pl.teamId = teamId;
         pl.number = Math.floor(Math.random() * 99) + 1;
+        while(this.isValidShirtNumber(pl.number, pl.teamId)) {
+            pl.number = Math.floor(Math.random() * 99) + 1;
+        }
+        this.addShirtNumberToTeam(pl.number, pl.teamId);
         pl.price = this.calculatePrice(pl.overall, pl.age);
         pl.salary = this.calculateSalary(pl.overall, pl.age);
         return pl;
@@ -39,5 +44,19 @@ export class GeneratorService {
 
     calculateSalary(overall, age) {
         return Math.floor(overall * 12000 * (18 / age));
+    }
+
+    isValidShirtNumber(shirt, teamId) {
+        const teams = this.storage.getTeams();
+        const numbers = teams[teamId - 1].shirtNumber;
+        return numbers.indexOf(shirt) != -1;
+    }
+
+    addShirtNumberToTeam(shirt, teamId) {
+        const teams = this.storage.getTeams();
+        const numbers = teams[teamId - 1].shirtNumber;
+        numbers.push(shirt);
+        teams[teamId - 1].shirtNumber = numbers;
+        this.storage.setTeams(teams);
     }
 }

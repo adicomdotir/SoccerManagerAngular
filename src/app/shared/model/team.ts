@@ -3,6 +3,7 @@ export class Team {
     name: string;
     overall: number;
     budget: number = 50000000;
+    shirtNumber: number[] = [];
 
     constructor(id, name, overall) {
         this.id = id;

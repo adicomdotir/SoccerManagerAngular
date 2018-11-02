@@ -134,7 +134,7 @@ export class StorageService {
     getTeamOverall(teamId) {
         let overall = 0;
         let count = 0;
-        this.getPlayers().filter(x => x.teamId == teamId).forEach(x => {
+        this.getPlayers().filter(x => x.teamId == teamId && x.retired == false).forEach(x => {
             overall += x.overall;
             count += 1;
         });
