@@ -270,7 +270,7 @@ export class GameService {
         for (let i = 1; i <= this.size; i++) {
             temp.push(i);
         }
-        // Week 
+        // Week
         for (let i = 1; i <= (this.size - 1) * 2; i++) {
             // Match
             for (let j = 0; j < this.size / 2; j++) {
