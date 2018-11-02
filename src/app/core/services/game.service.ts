@@ -157,10 +157,20 @@ export class GameService {
             players.push(pl);
         }
         this.storageService.setPlayers(players);
+        this.calculateBudget();
         this.generateMatches();
         this.generateTable();
         this.resetScores();
         this.gameCycle();
+    }
+
+    calculateBudget() {
+        const teams = this.storageService.getTeams();
+        const players = this.storageService.getPlayers().filter(x => x.retired == false);
+        players.forEach(p => {
+            teams[p.teamId - 1].budget -= p.salary;
+        });
+        this.storageService.setTeams(teams);
     }
 
     resetScores() {

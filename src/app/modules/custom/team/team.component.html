@@ -15,6 +15,11 @@
                     <h5>Player Size: {{players.length}}</h5>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <h5>{{team.budget | number: '2.'}} $</h5>
+                </div>
+            </div>
             <br>
             <table class="table table-sm ">
                 <thead class="thead-default">
@@ -35,9 +40,10 @@
                                     {{item.name}}
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item"  routerLink="#" (click)="storage.linkClick('player', item.id)">Info</a>
+                                    <a class="dropdown-item" routerLink="#" (click)="storage.linkClick('player', item.id)">Info</a>
                                     <a class="dropdown-item" href="#">Fire Player</a>
-                                    <a class="dropdown-item" routerLink="#" (click)="storage.linkClick('playerhistory', item.id)">Player History</a>
+                                    <a class="dropdown-item" routerLink="#" (click)="storage.linkClick('playerhistory', item.id)">Player
+                                        History</a>
                                 </div>
                             </div>
                         </td>
