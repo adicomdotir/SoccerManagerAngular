@@ -1,0 +1,51 @@
+<div class="form-group row">
+    <label class="col-md-2" for="">First</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2" for="">Second</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2" for="">Thirth</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2" for="">Fourth</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2" for="">Fifth</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-md-2" for="">Goal Keeper</label>
+    <div class="col-md-10">
+        <select class="form-control" (change)="divisionChange($event.target.value)">
+            <option *ngFor="let item of players; let i = index" value="{{item.id}}">{{item.name}}</option>
+        </select>
+    </div>
+</div>
+<div class="form-group row">
+    <button class="btn btn-success">Play Game</button>
+</div>

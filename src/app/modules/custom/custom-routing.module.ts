@@ -11,6 +11,7 @@ import { TopscorerComponent } from './topscorer/topscorer.component';
 import { PlayerHistoryComponent } from './playerhistory/playerhistory.component';
 import { NationalComponent } from './national/national.component';
 import { PlayersComponent } from './players/players.component';
+import { TacticComponent } from './tactic/tactic.component';
 
 const routes: Routes = [
     {
@@ -45,6 +46,9 @@ const routes: Routes = [
     },
     {
         path: 'players', component: PlayersComponent    
+    },
+    {
+        path: 'tactic', component: TacticComponent    
     }
 ];
 
