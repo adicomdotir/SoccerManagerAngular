@@ -9,10 +9,22 @@ import { StorageService } from '../../../core/services/storage.service';
 })
 export class TableComponent implements OnInit {
     table: Table[] = [];
+    myDiv: number;
     
     constructor(private storage: StorageService) { }
 
     ngOnInit() {
-        this.table = this.storage.getTable();
+        const user = this.storage.getUser();
+        const teams = this.storage.getTeams().filter(x => x.id == user.teamId);
+        this.myDiv = teams[0].div;
+        this.table = this.storage.getTable().filter(x => x.teamDiv == this.myDiv);
+    }
+
+    counter(n: number): any[] {
+        return Array(n);
+    }
+
+    divisionChange(value) {
+        this.table = this.storage.getTable().filter(x => x.teamDiv == value);
     }
 }
