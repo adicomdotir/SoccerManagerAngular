@@ -1,6 +1,7 @@
 export class Match {
     id: number;
     week: number;
+    div: number;
     homeTeamId: number;
     awayTeamId: number;
     homeTeamGoal: number = -1;

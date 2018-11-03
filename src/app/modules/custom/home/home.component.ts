@@ -29,11 +29,12 @@ export class HomeComponent implements OnInit {
             this.user.status = 'end';
             this.storage.setUser(this.user);
             // this.gameService.gameCycle();
-        }        
+        }
+        
         const teams = this.storage.getTeams().filter(x => x.id == this.user.teamId);
         this.userDiv = teams[0].div;
         this.table = this.storage.getTable().filter(x => x.teamDiv == this.userDiv);
-        this.matches = this.storage.getMatches().filter(x => x.week === 1);
+        this.matches = this.storage.getMatches().filter(x => x.div == this.userDiv).filter(x => x.week === 1);
         this.players = this.storage.getPlayers().filter(x => x.retired == false && x.teamId == this.user.teamId)
                                     .sort((a, b) => b.overall - a.overall).slice(0, 5);     
         // this.calculateTopScorer();
@@ -67,6 +68,6 @@ export class HomeComponent implements OnInit {
     }
 
     fixtureChange(index) {
-        this.matches = this.storage.getMatches().filter(x => x.week == index);
+        this.matches = this.storage.getMatches().filter(x => x.div == this.userDiv).filter(x => x.week == index);
     }
 }

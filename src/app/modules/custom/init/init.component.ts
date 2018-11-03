@@ -37,7 +37,7 @@ export class InitComponent implements OnInit {
         this.storageService.setPlayerHistories([]);
 
         let user: User = this.storageService.getUser();
-        user.teamId = this.selectedTeam;
+        user.teamId = 1;
         user.size = this.size;
         user.status = 'start';
         user.season = 1;
@@ -57,23 +57,26 @@ export class InitComponent implements OnInit {
             table.push(temp);
         }
         this.storageService.setTable(table);
-        console.log(table);
     }
 
     generateMatches() {
-        const temp: number[] = [];
         const matches: Match[] = [];
-        for (let i = 1; i <= this.size; i++) {
-            temp.push(i);
-        }
-        // Week 
-        for (let i = 1; i <= (this.size - 1) * 2; i++) {
-            // Match
-            for (let j = 0; j < this.size / 2; j++) {
-                const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
-                matches.push(matchTemp);
+        for (let k = 1; k <= this.divSize; k++) {
+            const temp: number[] = [];
+            const teams = this.storageService.getTeams().filter(x => x.div == k);
+            for (let i = 0; i < teams.length; i++) {
+                temp.push(teams[i].id);
             }
-            this.swapWeek(temp);
+            // Week 
+            for (let i = 1; i <= (this.size - 1) * 2; i++) {
+                // Match
+                for (let j = 0; j < this.size / 2; j++) {
+                    const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
+                    matchTemp.div = k;
+                    matches.push(matchTemp);
+                }
+                this.swapWeek(temp);
+            }
         }
         this.storageService.setMatches(matches);
     }
