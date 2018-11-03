@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
     matches: Match[];
     topScorer: TopScorer[] = [];
     players: Player[] = [];
+    userDiv: number;
 
     constructor(private gameService: GameService, private storage: StorageService, private router: Router) { }
 
@@ -27,21 +28,23 @@ export class HomeComponent implements OnInit {
         if (this.user.status === 'start') {
             this.user.status = 'end';
             this.storage.setUser(this.user);
-            this.gameService.gameCycle();
-        }
-        this.table = this.storage.getTable();
+            // this.gameService.gameCycle();
+        }        
+        const teams = this.storage.getTeams().filter(x => x.id == this.user.teamId);
+        this.userDiv = teams[0].div;
+        this.table = this.storage.getTable().filter(x => x.teamDiv == this.userDiv);
         this.matches = this.storage.getMatches().filter(x => x.week === 1);
-        this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall)
-                                    .filter(x => x.retired == false).slice(0, 5);     
-        this.calculateTopScorer();
+        this.players = this.storage.getPlayers().filter(x => x.retired == false && x.teamId == this.user.teamId)
+                                    .sort((a, b) => b.overall - a.overall).slice(0, 5);     
+        // this.calculateTopScorer();
         
-        this.gameService.$newSeasonSubject.subscribe(() => {
-            this.table = this.storage.getTable();
-            this.matches = this.storage.getMatches().filter(x => x.week === 1);
-            this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall)
-                                        .filter(x => x.retired == false).slice(0, 5);     
-            this.calculateTopScorer();
-        });
+        // this.gameService.$newSeasonSubject.subscribe(() => {
+        //     this.table = this.storage.getTable();
+        //     this.matches = this.storage.getMatches().filter(x => x.week === 1);
+        //     this.players = this.storage.getPlayers().sort((a, b) => b.overall - a.overall)
+        //                                 .filter(x => x.retired == false).slice(0, 5);     
+        //     this.calculateTopScorer();
+        // });
     }
 
     calculateTopScorer() {

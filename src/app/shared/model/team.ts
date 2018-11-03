@@ -4,6 +4,7 @@ export class Team {
     overall: number;
     budget: number = 50000000;
     shirtNumber: number[] = [];
+    div: number;
 
     constructor(id, name, overall) {
         this.id = id;

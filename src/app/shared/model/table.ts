@@ -1,6 +1,7 @@
 export class Table {
     id: number;
     teamId: number;
+    teamDiv: number;
     game: number = 0;
     win: number = 0;
     lose: number = 0;

@@ -18,7 +18,8 @@ export class InitComponent implements OnInit {
 
     teams = teamNames;
     selectedTeam: number = 1;
-    size: number = 2;
+    size: number = 8;
+    divSize: number = 5;
 
     constructor(private router: Router, private storageService: StorageService, private generator: GeneratorService) { }
 
@@ -26,10 +27,6 @@ export class InitComponent implements OnInit {
 
     teamSelect(index) {
         this.selectedTeam = Number.parseInt(index) + 1;
-    }
-
-    sizeSelect(index) {
-        this.size = Number.parseInt(index);
     }
 
     onClick() {
@@ -51,13 +48,16 @@ export class InitComponent implements OnInit {
 
     generateTable() {
         const table: Table[] = [];
-        for (let i = 1; i <= this.size; i++) {
+        const teams = this.storageService.getTeams();
+        for (let i = 0; i < teams.length; i++) {
             const temp = new Table();
             temp.id = table.length + 1;
-            temp.teamId = i;
+            temp.teamId = teams[i].id;
+            temp.teamDiv = teams[i].div;
             table.push(temp);
         }
         this.storageService.setTable(table);
+        console.log(table);
     }
 
     generateMatches() {
@@ -89,13 +89,22 @@ export class InitComponent implements OnInit {
     generateTeams() {
         let gTeams: Team[] = [];
         const myTeam = new Team(gTeams.length + 1, this.teams[this.selectedTeam - 1], 0);
+        myTeam.div = 5;
         const teamsId: number[] = [];
         teamsId.push(this.selectedTeam - 1);
         gTeams.push(myTeam);
-        while (gTeams.length < this.size) {
+        let index = 1;
+        let div = 1;
+        while (gTeams.length < this.size * this.divSize) {
             let rnd = Math.floor(Math.random() * this.teams.length);
             if (teamsId.indexOf(rnd) === -1) {
                 const temp = new Team(gTeams.length + 1, this.teams[rnd], 0);
+                temp.div = div;
+                index++;
+                if (index > 8) {
+                    index = 1;
+                    div++;
+                }
                 gTeams.push(temp);
                 teamsId.push(rnd);
             }
@@ -105,7 +114,7 @@ export class InitComponent implements OnInit {
 
     generatePlayers() {
         const players: Player[] = [];
-        for (let i = 1; i <= this.size; i++) {
+        for (let i = 1; i <= this.size * this.divSize; i++) {
             for (let j = 0; j < 12; j++) {
                 players.push(this.generator.createPlayer(players.length + 1, i));
             }
