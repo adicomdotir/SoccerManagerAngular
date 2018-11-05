@@ -21,8 +21,10 @@ export class GeneratorService {
         pl.defend = Math.floor(Math.random() * 20) + 1;
         pl.goalkeeper = Math.floor(Math.random() * 20) + 1;
         pl.finish = Math.floor(Math.random() * 20) + 1;
+        pl.creativity = Math.floor(Math.random() * 20) + 1;
+        pl.attention = Math.floor(Math.random() * 20) + 1;
         pl.morale = 4;
-        pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish;
+        pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish + pl.attention + pl.creativity;
         pl.teamId = teamId;
         pl.number = Math.floor(Math.random() * 99) + 1;
         while(this.isValidShirtNumber(pl.number, pl.teamId)) {
@@ -30,7 +32,7 @@ export class GeneratorService {
         }
         this.addShirtNumberToTeam(pl.number, pl.teamId);
         pl.price = this.calculatePrice(pl.overall, pl.age);
-        pl.salary = this.calculateSalary(pl.overall, pl.age);
+        pl.salary = this.calculateSalary(pl);
         return pl;
     }
 
@@ -42,8 +44,14 @@ export class GeneratorService {
         else return Math.floor(overall * 1000000);
     }
 
-    calculateSalary(overall, age) {
-        return Math.floor(overall * 12000 * (18 / age));
+    calculateSalary(player: Player) {
+        let salary = player.attack * 14000;
+        salary += player.defend * 13000;
+        salary += player.goalkeeper * 11000;
+        salary += player.finish * 12000;
+        salary += player.creativity * 10000;
+        salary += player.attention * 10000;
+        return Math.floor(salary * (18 / player.age));
     }
 
     isValidShirtNumber(shirt, teamId) {

@@ -5,6 +5,8 @@ export class Player {
     overall: number;
     attack: number;
     defend: number;
+    attention: number;
+    creativity: number;
     teamId: number;
     national: string;
     number: number;

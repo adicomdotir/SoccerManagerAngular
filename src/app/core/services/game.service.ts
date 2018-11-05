@@ -54,7 +54,9 @@ export class GameService {
                 }
                 //
                 let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale + homePlayer.experience;
+                homeScore += Math.floor((homePlayer.attention + homePlayer.creativity) / 2);
                 let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale + awayGK.experience;
+                homeScore += Math.floor((awayGK.attention + awayGK.creativity) / 2);
                 if (homeScore > awayScore) {
                     //
                     homePlayer.scored++;
@@ -81,7 +83,9 @@ export class GameService {
                 }
                 //
                 homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale + homeGK.experience;
+                homeScore += Math.floor((homeGK.attention + homeGK.creativity) / 2);
                 awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale + awayPlayer.experience;
+                homeScore += Math.floor((awayPlayer.attention + awayPlayer.creativity) / 2);
                 if (homeScore < awayScore) {
                     //
                     awayPlayer.scored++;
@@ -129,7 +133,7 @@ export class GameService {
                 p.overall = p.attack + p.defend + p.finish + p.goalkeeper;
             }
             p.age += 1;
-            p.salary = this.generator.calculateSalary(p.overall, p.age);
+            p.salary = this.generator.calculateSalary(p);
             p.price = this.generator.calculatePrice(p.overall, p.age);
 
             if (p.retired == false) {

@@ -1,13 +1,14 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.googleapis.com/css?family=Kreon');
-body, html {
-    /* font-family: 'Merriweather', serif; */
+* {
+    /* font-family: 'Mali', cursive; */
     font-family: 'Kreon', serif;
 }
 
 body {
     padding-top: 5rem;
 }
+
 .starter-template {
     padding: 3rem 1.5rem;
     text-align: center;
