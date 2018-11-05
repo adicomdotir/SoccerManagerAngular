@@ -21,6 +21,7 @@ export class StorageService {
 
     decrypt(route) {
         const hash = localStorage.getItem(route);
+        if (hash == null) return null;
         const objectString = crypto.AES.decrypt(hash, this.secret);
         return objectString.toString(crypto.enc.Utf8);
     }
