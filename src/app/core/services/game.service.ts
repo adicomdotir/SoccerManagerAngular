@@ -23,9 +23,15 @@ export class GameService {
     }
 
     gameCycle() {
-        const matches: Match[] = this.storageService.getMatches();
+        const user: User = this.storageService.getUser();
+        let matches: Match[] = this.storageService.getMatches();
+        let otherMatches = matches.filter(x => x.week != user.week);
+        matches = matches.filter(x => x.week == user.week);
+        
         const players: Player[] = this.storageService.getPlayers();
-        const scores: Score[] = [];
+        let scores: Score[] = this.storageService.getScores();
+        if (scores == null) scores = [];
+
         for (let i = 0; i < matches.length; i++) {
             const match: Match = matches[i];
             const homeTeamId = match.homeTeamId;
@@ -111,8 +117,11 @@ export class GameService {
         }
         this.sortTable();
         this.storageService.setPlayers(players);
+        matches = matches.concat(otherMatches);
         this.storageService.setMatches(matches);
         this.storageService.setScores(scores);
+        user.week++;
+        this.storageService.setUser(user);
     }
 
     NewSeason() {

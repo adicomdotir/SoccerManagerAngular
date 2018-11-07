@@ -41,6 +41,7 @@ export class InitComponent implements OnInit {
         user.size = this.size;
         user.status = 'start';
         user.season = 1;
+        user.week = 1;
         this.storageService.setUser(user);
 
         this.router.navigateByUrl('/home');
