@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of table; let i = index">
+                    <tr *ngFor="let item of table; let i = index" class="{{getClass(i)}}">
                         <th scope="row">{{i + 1}}</th>
                         <td><a routerLink="#" (click)="storage.linkClick('team', item.teamId)">{{storage.getTeamName(item.teamId)}}</a>
                             [{{storage.getTeamOverall(item.teamId)}}]</td>
@@ -30,7 +30,9 @@
         </div>
         <form>
             <div class="form-group">
-                <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a>&nbsp;- Division {{userDiv}}</h3></label>
+                <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a>&nbsp;- Division
+                        {{userDiv}}
+                    </h3></label>
                 <select class="form-control" id="fixture" (change)="fixtureChange($event.target.value)">
                     <option *ngFor="let item of counter(user.size); let i = index" value="{{i + 1}}">Week {{i + 1}}</option>
                 </select>
@@ -39,7 +41,8 @@
                 <ng-container *ngFor="let item of matches">
                     <div class="col-md-4 text-center">{{storage.getTeamName(item.homeTeamId)}}</div>
                     <div class="col-md-4 text-center">
-                        <a routerLink="#" (click)="storage.linkClick('score', item.id)">{{item.homeTeamGoal === -1 ? 'X' : item.homeTeamGoal}} - {{item.awayTeamGoal === -1 ? 'X' : item.awayTeamGoal}}</a>
+                        <a routerLink="#" (click)="storage.linkClick('score', item.id)">{{item.homeTeamGoal === -1 ? 'X'
+                            : item.homeTeamGoal}} - {{item.awayTeamGoal === -1 ? 'X' : item.awayTeamGoal}}</a>
                     </div>
                     <div class="col-md-4 text-center">{{storage.getTeamName(item.awayTeamId)}}</div>
                 </ng-container>

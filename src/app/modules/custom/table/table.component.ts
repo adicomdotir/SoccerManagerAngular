@@ -27,4 +27,17 @@ export class TableComponent implements OnInit {
     divisionChange(value) {
         this.table = this.storage.getTable().filter(x => x.teamDiv == value);
     }
+
+    getClass(index) {
+        if (index == 0) {
+            return 'table-success';
+        } else if (index == 1) {
+            return 'table-second';
+        } else if (index == 6) {
+            return 'table-warning';
+        } else if (index == 7) {
+            return 'table-danger';
+        }
+        return '';
+    }
 }
