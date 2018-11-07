@@ -9,6 +9,7 @@ import { Table } from "../../shared/model/table";
 import { Subject } from "rxjs";
 import { PlayerHistory } from "../../shared/model/playerHistory";
 import { GeneratorService } from "./generator.service";
+import { TopScorer } from "../../shared/model/topscorer";
 
 @Injectable()
 export class GameService {
@@ -29,7 +30,7 @@ export class GameService {
         let matches: Match[] = this.storageService.getMatches();
         let otherMatches = matches.filter(x => x.week != user.week);
         matches = matches.filter(x => x.week == user.week);
-        
+
         const players: Player[] = this.storageService.getPlayers();
         let scores: Score[] = this.storageService.getScores();
         if (scores == null) scores = [];
@@ -75,6 +76,7 @@ export class GameService {
                     //
                     homeGoal++;
                     const score = new Score(scores.length + 1, match.id, homePlayer.id, true);
+                    this.updateGoalForPlayer(homePlayer.id, match.div);
                     scores.push(score);
                 } else {
                     if (homePlayer.morale > 0 && homePlayer.morale < 8) {
@@ -104,6 +106,7 @@ export class GameService {
                     //
                     awayGoal++;
                     const score = new Score(scores.length + 1, match.id, awayPlayer.id, true);
+                    this.updateGoalForPlayer(awayPlayer.id, match.div);
                     scores.push(score);
                 } else {
                     if (awayPlayer.morale > 0 && awayPlayer.morale < 8) {
@@ -188,6 +191,7 @@ export class GameService {
         this.generator.generateMatches();
         this.generator.generateTable();
         this.resetScores();
+        this.storageService.setTopscorer([]);
 
         this.endSeasonSubject.next();
         // this.gameCycle();
@@ -312,40 +316,19 @@ export class GameService {
         this.storageService.setTable(table);
     }
 
-    // generateMatches() {
-    //     const temp: number[] = [];
-    //     const matches: Match[] = [];
-    //     for (let i = 1; i <= this.size; i++) {
-    //         temp.push(i);
-    //     }
-    //     // Week
-    //     for (let i = 1; i <= (this.size - 1) * 2; i++) {
-    //         // Match
-    //         for (let j = 0; j < this.size / 2; j++) {
-    //             const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
-    //             matches.push(matchTemp);
-    //         }
-    //         this.swapWeek(temp);
-    //     }
-    //     this.storageService.setMatches(matches);
-    // }
-
-    // swapWeek(temp: number[]) {
-    //     let lastTeamId = temp[this.size - 1];
-    //     for (let i = this.size - 1; i > 0; i--) {
-    //         temp[i] = temp[i - 1];
-    //     }
-    //     temp[1] = lastTeamId;
-    // }
-
-    // generateTable() {
-    //     const table: Table[] = [];
-    //     for (let i = 1; i <= this.size; i++) {
-    //         const temp = new Table();
-    //         temp.id = table.length + 1;
-    //         temp.teamId = i;
-    //         table.push(temp);
-    //     }
-    //     this.storageService.setTable(table);
-    // }
+    private updateGoalForPlayer(playerId, div) {
+        let topscorer = this.storageService.getTopscorer();
+        if (topscorer == null) {
+            topscorer = [];
+        } else {
+            const temp = topscorer.filter(x => x.playerId == playerId);
+            if (temp.length > 0) {
+                temp[0].goal++;
+            } else {
+                let newTopscorer = new TopScorer(playerId, 1, div);
+                topscorer.push(newTopscorer);
+            }
+        }
+        this.storageService.setTopscorer(topscorer);
+    }
 }

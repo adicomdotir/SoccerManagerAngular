@@ -14,21 +14,16 @@ export class TopscorerComponent implements OnInit {
     constructor(private storage: StorageService) { }
 
     ngOnInit() {
-        this.calculateTopScorer();
-    }
+        const user = this.storage.getUser();
+        const teams = this.storage.getTeams().filter(x => x.id == user.teamId);
+        let userDiv = teams[0].div;
 
-    calculateTopScorer() {
-        const scores = this.storage.getScores().filter(x => x.score == true);
-        for (let i = 0; i < scores.length; i++) {
-            const score = scores[i];
-            if (this.topScorer.filter(x => x.playerId == score.playerId).length == 0) {
-                this.topScorer.push(new TopScorer(score.playerId, 1));
-            } else {
-                let res = this.topScorer.filter(x => x.playerId == score.playerId)[0];
-                res.goal++;
-            }
+        this.topScorer = this.storage.getTopscorer();
+        if (this.topScorer == null) {
+            this.topScorer = [];
+        } else {
+            this.topScorer = this.topScorer.filter(x => x.div == userDiv).sort((a,b) => b.goal - a.goal);
         }
-        this.topScorer = this.topScorer.sort((a, b) => b.goal - a.goal);
     }
 
     getPlayerTeam(id) {

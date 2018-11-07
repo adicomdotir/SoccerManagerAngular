@@ -5,6 +5,7 @@ import { Match } from "../../shared/model/match";
 import { Table } from "../../shared/model/table";
 import { Score } from "../../shared/model/score";
 import { User } from "../../shared/model/user";
+import { TopScorer } from "../../shared/model/topscorer";
 import { PlayerHistory } from "../../shared/model/playerHistory";
 import { Router } from "@angular/router";
 import * as crypto from "crypto-js";
@@ -140,5 +141,13 @@ export class StorageService {
             count += 1;
         });
         return Math.round(overall / count);
+    }
+
+    setTopscorer(topscorer: TopScorer[]) {
+        this.encrypt('topscorer', JSON.stringify(topscorer));
+    }
+
+    getTopscorer(): TopScorer[] {
+        return JSON.parse(this.decrypt('topscorer'));
     }
 }
