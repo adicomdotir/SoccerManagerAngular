@@ -11,10 +11,15 @@ import { User } from '../../../shared/model/user';
 })
 export class HeaderComponent implements OnInit {
     user: User;
+    endSeason = false;
 
     constructor(private storage: StorageService, private gameService: GameService) {
         gameService.$newSeasonSubject.subscribe(() => {
             this.user = this.storage.getUser();
+        });
+
+        gameService.endSeasonSubject.subscribe(() => {
+            this.endSeason = true;
         })
     }
 

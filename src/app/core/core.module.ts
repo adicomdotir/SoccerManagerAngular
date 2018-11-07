@@ -4,9 +4,10 @@ import { StorageService } from "./services/storage.service";
 import { HeaderComponent } from "./layout/header/header.component";
 import { RouterModule } from "@angular/router";
 import { GeneratorService } from "./services/generator.service";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
-    imports: [RouterModule],
+    imports: [RouterModule, CommonModule],
     exports: [HeaderComponent],
     providers: [GameService, StorageService, GeneratorService],
     declarations: [HeaderComponent]

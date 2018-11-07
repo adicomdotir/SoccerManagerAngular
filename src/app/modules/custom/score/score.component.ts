@@ -16,6 +16,7 @@ export class ScoreComponent implements OnInit {
 
     ngOnInit() {
         const user = this.storage.getUser();
+        console.log(user);
         this.scores = this.storage.getScores().filter(x => x.matchId == user.selectedMatchId);
         this.match = this.storage.getMatches().filter(x => x.id == user.selectedMatchId)[0];
     }

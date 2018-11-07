@@ -43,6 +43,7 @@ export class InitComponent implements OnInit {
         user.season = 1;
         user.week = 1;
         this.storageService.setUser(user);
+        localStorage.removeItem('scores');
 
         this.router.navigateByUrl('/home');
     }

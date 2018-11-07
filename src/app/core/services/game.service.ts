@@ -16,6 +16,8 @@ export class GameService {
 
     newSeasonSubject = new Subject();
     $newSeasonSubject = this.newSeasonSubject.asObservable();
+    endSeasonSubject = new Subject();
+    $endSeasonSubject = this.endSeasonSubject.asObservable();
 
     constructor(private storageService: StorageService, private generator: GeneratorService) {
         let user: User = storageService.getUser();
@@ -62,7 +64,7 @@ export class GameService {
                 let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale + homePlayer.experience;
                 homeScore += Math.floor((homePlayer.attention + homePlayer.creativity) / 2);
                 let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale + awayGK.experience;
-                homeScore += Math.floor((awayGK.attention + awayGK.creativity) / 2);
+                awayScore += Math.floor((awayGK.attention + awayGK.creativity) / 2);
                 if (homeScore > awayScore) {
                     //
                     homePlayer.scored++;
@@ -91,7 +93,7 @@ export class GameService {
                 homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale + homeGK.experience;
                 homeScore += Math.floor((homeGK.attention + homeGK.creativity) / 2);
                 awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale + awayPlayer.experience;
-                homeScore += Math.floor((awayPlayer.attention + awayPlayer.creativity) / 2);
+                awayScore += Math.floor((awayPlayer.attention + awayPlayer.creativity) / 2);
                 if (homeScore < awayScore) {
                     //
                     awayPlayer.scored++;
@@ -122,6 +124,9 @@ export class GameService {
         this.storageService.setScores(scores);
         user.week++;
         this.storageService.setUser(user);
+        if (user.week > 14) {
+            this.endSeasonSubject.next();
+        }
     }
 
     NewSeason() {
