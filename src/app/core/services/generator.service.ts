@@ -2,9 +2,14 @@ import { Injectable } from '@angular/core';
 import { Player } from '../../shared/model/player';
 import { firstName, lastName, countries } from '../../config/localdata';
 import { StorageService } from './storage.service';
+import { Table } from '../../shared/model/table';
+import { Match } from '../../shared/model/match';
+import { User } from '../../shared/model/user';
 
 @Injectable()
 export class GeneratorService {
+
+    divSize: number = 5;
 
     constructor(private storage: StorageService) { }
 
@@ -66,5 +71,54 @@ export class GeneratorService {
         numbers.push(shirt);
         teams[teamId - 1].shirtNumber = numbers;
         this.storage.setTeams(teams);
+    }
+
+    generateTable() {
+        const table: Table[] = [];
+        const teams = this.storage.getTeams();
+        for (let i = 0; i < teams.length; i++) {
+            const temp = new Table();
+            temp.id = table.length + 1;
+            temp.teamId = teams[i].id;
+            temp.teamDiv = teams[i].div;
+            table.push(temp);
+        }
+        this.storage.setTable(table);
+    }
+
+    generateMatches() {
+        let user: User = this.storage.getUser();
+        let size = user.size;
+        
+        const matches: Match[] = [];
+        for (let k = 1; k <= this.divSize; k++) {
+            const temp: number[] = [];
+            const teams = this.storage.getTeams().filter(x => x.div == k);
+            for (let i = 0; i < teams.length; i++) {
+                temp.push(teams[i].id);
+            }
+            // Week 
+            for (let i = 1; i <= (size - 1) * 2; i++) {
+                // Match
+                for (let j = 0; j < size / 2; j++) {
+                    const matchTemp = new Match(matches.length + 1, i, temp[j], temp[size - 1 - j]);
+                    matchTemp.div = k;
+                    matches.push(matchTemp);
+                }
+                this.swapWeek(temp);
+            }
+        }
+        this.storage.setMatches(matches);
+    }
+
+    swapWeek(temp: number[]) {
+        let user: User = this.storage.getUser();
+        let size = user.size;
+
+        let lastTeamId = temp[size - 1];
+        for (let i = size - 1; i > 0; i--) {
+            temp[i] = temp[i - 1];
+        }
+        temp[1] = lastTeamId;
     }
 }

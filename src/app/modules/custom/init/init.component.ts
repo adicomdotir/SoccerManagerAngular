@@ -32,8 +32,8 @@ export class InitComponent implements OnInit {
     onClick() {
         this.generateTeams();
         this.generatePlayers();
-        this.generateMatches();
-        this.generateTable();
+        this.generator.generateMatches();
+        this.generator.generateTable();
         this.storageService.setPlayerHistories([]);
 
         let user: User = this.storageService.getUser();
@@ -46,49 +46,6 @@ export class InitComponent implements OnInit {
         localStorage.removeItem('scores');
 
         this.router.navigateByUrl('/home');
-    }
-
-    generateTable() {
-        const table: Table[] = [];
-        const teams = this.storageService.getTeams();
-        for (let i = 0; i < teams.length; i++) {
-            const temp = new Table();
-            temp.id = table.length + 1;
-            temp.teamId = teams[i].id;
-            temp.teamDiv = teams[i].div;
-            table.push(temp);
-        }
-        this.storageService.setTable(table);
-    }
-
-    generateMatches() {
-        const matches: Match[] = [];
-        for (let k = 1; k <= this.divSize; k++) {
-            const temp: number[] = [];
-            const teams = this.storageService.getTeams().filter(x => x.div == k);
-            for (let i = 0; i < teams.length; i++) {
-                temp.push(teams[i].id);
-            }
-            // Week 
-            for (let i = 1; i <= (this.size - 1) * 2; i++) {
-                // Match
-                for (let j = 0; j < this.size / 2; j++) {
-                    const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
-                    matchTemp.div = k;
-                    matches.push(matchTemp);
-                }
-                this.swapWeek(temp);
-            }
-        }
-        this.storageService.setMatches(matches);
-    }
-
-    swapWeek(temp: number[]) {
-        let lastTeamId = temp[this.size - 1];
-        for (let i = this.size - 1; i > 0; i--) {
-            temp[i] = temp[i - 1];
-        }
-        temp[1] = lastTeamId;
     }
 
     generateTeams() {

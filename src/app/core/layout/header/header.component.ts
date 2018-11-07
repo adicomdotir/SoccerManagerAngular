@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
         });
 
         gameService.endSeasonSubject.subscribe(() => {
-            this.endSeason = true;
+            this.endSeason = !this.endSeason;
         })
     }
 

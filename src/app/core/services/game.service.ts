@@ -133,7 +133,7 @@ export class GameService {
         const playerHistories = this.storageService.getPlayerHistories();
         const user = this.storageService.getUser();
         const teams = this.storageService.getTeams();
-
+        user.week = 1;
         user.season++;
         this.storageService.setUser(user);
         this.newSeasonSubject.next();
@@ -144,7 +144,7 @@ export class GameService {
                 p.defend = (p.defend > 0) ? p.defend -= 1 : 0;
                 p.finish = (p.finish > 0) ? p.finish -= 1 : 0;
                 p.goalkeeper = (p.goalkeeper > 0) ? p.goalkeeper -= 1 : 0;
-                p.overall = p.attack + p.defend + p.finish + p.goalkeeper;
+                p.overall = p.attack + p.defend + p.finish + p.goalkeeper + p.creativity + p.attention;
             }
             p.age += 1;
             p.salary = this.generator.calculateSalary(p);
@@ -183,13 +183,14 @@ export class GameService {
         }
         this.storageService.setPlayers(players);
         this.storageService.setTeams(teams);
-        console.log(teams)
 
         this.calculateBudget();
-        this.generateMatches();
-        this.generateTable();
+        this.generator.generateMatches();
+        this.generator.generateTable();
         this.resetScores();
-        this.gameCycle();
+
+        this.endSeasonSubject.next();
+        // this.gameCycle();
     }
 
     calculateBudget() {
@@ -311,40 +312,40 @@ export class GameService {
         this.storageService.setTable(table);
     }
 
-    generateMatches() {
-        const temp: number[] = [];
-        const matches: Match[] = [];
-        for (let i = 1; i <= this.size; i++) {
-            temp.push(i);
-        }
-        // Week
-        for (let i = 1; i <= (this.size - 1) * 2; i++) {
-            // Match
-            for (let j = 0; j < this.size / 2; j++) {
-                const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
-                matches.push(matchTemp);
-            }
-            this.swapWeek(temp);
-        }
-        this.storageService.setMatches(matches);
-    }
+    // generateMatches() {
+    //     const temp: number[] = [];
+    //     const matches: Match[] = [];
+    //     for (let i = 1; i <= this.size; i++) {
+    //         temp.push(i);
+    //     }
+    //     // Week
+    //     for (let i = 1; i <= (this.size - 1) * 2; i++) {
+    //         // Match
+    //         for (let j = 0; j < this.size / 2; j++) {
+    //             const matchTemp = new Match(matches.length + 1, i, temp[j], temp[this.size - 1 - j]);
+    //             matches.push(matchTemp);
+    //         }
+    //         this.swapWeek(temp);
+    //     }
+    //     this.storageService.setMatches(matches);
+    // }
 
-    swapWeek(temp: number[]) {
-        let lastTeamId = temp[this.size - 1];
-        for (let i = this.size - 1; i > 0; i--) {
-            temp[i] = temp[i - 1];
-        }
-        temp[1] = lastTeamId;
-    }
+    // swapWeek(temp: number[]) {
+    //     let lastTeamId = temp[this.size - 1];
+    //     for (let i = this.size - 1; i > 0; i--) {
+    //         temp[i] = temp[i - 1];
+    //     }
+    //     temp[1] = lastTeamId;
+    // }
 
-    generateTable() {
-        const table: Table[] = [];
-        for (let i = 1; i <= this.size; i++) {
-            const temp = new Table();
-            temp.id = table.length + 1;
-            temp.teamId = i;
-            table.push(temp);
-        }
-        this.storageService.setTable(table);
-    }
+    // generateTable() {
+    //     const table: Table[] = [];
+    //     for (let i = 1; i <= this.size; i++) {
+    //         const temp = new Table();
+    //         temp.id = table.length + 1;
+    //         temp.teamId = i;
+    //         table.push(temp);
+    //     }
+    //     this.storageService.setTable(table);
+    // }
 }
