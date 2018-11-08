@@ -53,24 +53,6 @@ export class HomeComponent implements OnInit {
         });
     }
 
-    // calculateTopScorer() {
-    //     this.topScorer = [];
-    //     let scores = this.storage.getScores();
-    //     if (scores != null) {
-    //         scores = scores.filter(x => x.score == true);
-    //         for (let i = 0; i < scores.length; i++) {
-    //             const score = scores[i];
-    //             if (this.topScorer.filter(x => x.playerId == score.playerId).length == 0) {
-    //                 this.topScorer.push(new TopScorer(score.playerId, 1));
-    //             } else {
-    //                 let res = this.topScorer.filter(x => x.playerId == score.playerId)[0];
-    //                 res.goal++;
-    //             }
-    //         }
-    //         this.topScorer = this.topScorer.sort((a, b) => b.goal - a.goal).slice(0, 5);
-    //     }
-    // }
-
     counter(n: number): any[] {
         return Array((n - 1) * 2);
     }

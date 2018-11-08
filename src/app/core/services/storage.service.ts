@@ -14,6 +14,16 @@ import * as crypto from "crypto-js";
 export class StorageService {
     private secret = '123456789';
     constructor(private router: Router) { }
+    
+    removeAllData() {
+        localStorage.removeItem('matches');
+        localStorage.removeItem('playerhistories');
+        localStorage.removeItem('players');
+        localStorage.removeItem('table');
+        localStorage.removeItem('teams');
+        localStorage.removeItem('topscorer');
+        localStorage.removeItem('user');
+    }
 
     encrypt(route, objectString) {
         const hash = crypto.AES.encrypt(objectString, this.secret);

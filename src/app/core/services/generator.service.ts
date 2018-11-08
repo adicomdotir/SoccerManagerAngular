@@ -32,7 +32,7 @@ export class GeneratorService {
         pl.overall = pl.attack + pl.defend + pl.goalkeeper + pl.finish + pl.attention + pl.creativity;
         pl.teamId = teamId;
         pl.number = Math.floor(Math.random() * 99) + 1;
-        while(this.isValidShirtNumber(pl.number, pl.teamId)) {
+        while (this.isValidShirtNumber(pl.number, pl.teamId)) {
             pl.number = Math.floor(Math.random() * 99) + 1;
         }
         this.addShirtNumberToTeam(pl.number, pl.teamId);
@@ -86,10 +86,25 @@ export class GeneratorService {
         this.storage.setTable(table);
     }
 
+    resetTable() {
+        const table: Table[] = this.storage.getTable();
+        for (let i = 0; i < table.length; i++) {
+            table[i].draw = 0;
+            table[i].ga = 0;
+            table[i].game = 0;
+            table[i].gd = 0;
+            table[i].gf = 0;
+            table[i].lose = 0;
+            table[i].points = 0;
+            table[i].win = 0;
+        }
+        this.storage.setTable(table);
+    }
+
     generateMatches() {
         let user: User = this.storage.getUser();
         let size = user.size;
-        
+
         const matches: Match[] = [];
         for (let k = 1; k <= this.divSize; k++) {
             const temp: number[] = [];

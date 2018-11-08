@@ -133,6 +133,8 @@ export class GameService {
     }
 
     NewSeason() {
+        this.PromoteAndRelegate();
+
         const playerHistories = this.storageService.getPlayerHistories();
         const user = this.storageService.getUser();
         const teams = this.storageService.getTeams();
@@ -189,7 +191,7 @@ export class GameService {
 
         this.calculateBudget();
         this.generator.generateMatches();
-        this.generator.generateTable();
+        this.generator.resetTable();
         this.resetScores();
         this.storageService.setTopscorer([]);
 
@@ -330,5 +332,24 @@ export class GameService {
             }
         }
         this.storageService.setTopscorer(topscorer);
+    }
+
+    private PromoteAndRelegate() {
+        const table = this.storageService.getTable();
+        const div1 = table.filter(x => x.teamDiv == 1);
+        const div2 = table.filter(x => x.teamDiv == 2);
+        const div3 = table.filter(x => x.teamDiv == 3);
+        const div4 = table.filter(x => x.teamDiv == 4);
+        const div5 = table.filter(x => x.teamDiv == 5);
+        div2[0].teamDiv = 1;
+        div3[0].teamDiv = 2;
+        div4[0].teamDiv = 3;
+        div5[0].teamDiv = 4;
+        div1[7].teamDiv = 2;
+        div2[7].teamDiv = 3;
+        div3[7].teamDiv = 4;
+        div4[7].teamDiv = 5;
+        this.storageService.setTable(table);
+        console.log(table)
     }
 }

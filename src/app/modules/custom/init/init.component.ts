@@ -30,11 +30,7 @@ export class InitComponent implements OnInit {
     }
 
     onClick() {
-        this.generateTeams();
-        this.generatePlayers();
-        this.generator.generateMatches();
-        this.generator.generateTable();
-        this.storageService.setPlayerHistories([]);
+        this.storageService.removeAllData();
 
         let user: User = this.storageService.getUser();
         user.teamId = 1;
@@ -43,7 +39,12 @@ export class InitComponent implements OnInit {
         user.season = 1;
         user.week = 1;
         this.storageService.setUser(user);
-        localStorage.removeItem('scores');
+
+        this.generateTeams();
+        this.generatePlayers();
+        this.generator.generateMatches();
+        this.generator.generateTable();
+        this.storageService.setPlayerHistories([]);
 
         this.router.navigateByUrl('/home');
     }
