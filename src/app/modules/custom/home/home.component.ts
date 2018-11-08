@@ -61,16 +61,4 @@ export class HomeComponent implements OnInit {
         this.matches = this.storage.getMatches().filter(x => x.div == this.userDiv).filter(x => x.week == index);
     }
 
-    getClass(index) {
-        if (index == 0) {
-            return 'table-success';
-        } else if (index == 1) {
-            return 'table-second';
-        } else if (index == 6) {
-            return 'table-warning';
-        } else if (index == 7) {
-            return 'table-danger';
-        }
-        return '';
-    }
 }

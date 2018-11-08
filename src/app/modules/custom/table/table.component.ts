@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from '../../../shared/model/table';
 import { StorageService } from '../../../core/services/storage.service';
+import { GameService } from '../../../core/services/game.service';
 
 @Component({
     selector: 'app-table',
@@ -11,7 +12,7 @@ export class TableComponent implements OnInit {
     table: Table[] = [];
     myDiv: number;
     
-    constructor(private storage: StorageService) { }
+    constructor(private storage: StorageService, private gameService: GameService) { }
 
     ngOnInit() {
         const user = this.storage.getUser();
@@ -26,18 +27,5 @@ export class TableComponent implements OnInit {
 
     divisionChange(value) {
         this.table = this.storage.getTable().filter(x => x.teamDiv == value);
-    }
-
-    getClass(index) {
-        if (index == 0) {
-            return 'table-success';
-        } else if (index == 1) {
-            return 'table-second';
-        } else if (index == 6) {
-            return 'table-warning';
-        } else if (index == 7) {
-            return 'table-danger';
-        }
-        return '';
     }
 }

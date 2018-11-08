@@ -22,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of table; let i = index" class="{{getClass(i)}}">
+                    <tr *ngFor="let item of table; let i = index" class="{{gameService.getClass(i)}}">
                         <th scope="row">{{i + 1}}</th>
                         <td><a routerLink="#" (click)="storage.linkClick('team', item.teamId)">{{storage.getTeamName(item.teamId)}}</a></td>
                         <td>{{item.game}}</td>

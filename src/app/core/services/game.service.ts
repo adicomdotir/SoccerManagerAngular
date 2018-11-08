@@ -335,6 +335,7 @@ export class GameService {
     }
 
     private PromoteAndRelegate() {
+        const teams = this.storageService.getTeams();
         const table = this.storageService.getTable();
         const div1 = table.filter(x => x.teamDiv == 1);
         const div2 = table.filter(x => x.teamDiv == 2);
@@ -342,14 +343,35 @@ export class GameService {
         const div4 = table.filter(x => x.teamDiv == 4);
         const div5 = table.filter(x => x.teamDiv == 5);
         div2[0].teamDiv = 1;
+        teams.filter(x => x.id == div2[0].teamId).map(x => x.div = 1);
         div3[0].teamDiv = 2;
+        teams.filter(x => x.id == div3[0].teamId).map(x => x.div = 2);
         div4[0].teamDiv = 3;
+        teams.filter(x => x.id == div4[0].teamId).map(x => x.div = 3);
         div5[0].teamDiv = 4;
+        teams.filter(x => x.id == div5[0].teamId).map(x => x.div = 4);
         div1[7].teamDiv = 2;
+        teams.filter(x => x.id == div1[7].teamId).map(x => x.div = 2);
         div2[7].teamDiv = 3;
+        teams.filter(x => x.id == div2[7].teamId).map(x => x.div = 3);
         div3[7].teamDiv = 4;
+        teams.filter(x => x.id == div3[7].teamId).map(x => x.div = 4);
         div4[7].teamDiv = 5;
+        teams.filter(x => x.id == div4[7].teamId).map(x => x.div = 5);
+        this.storageService.setTeams(teams);
         this.storageService.setTable(table);
-        console.log(table)
+    }
+
+    getClass(index) {
+        if (index == 0) {
+            return 'table-success';
+        } else if (index == 1) {
+            // return 'table-second';
+        } else if (index == 6) {
+            // return 'table-warning';
+        } else if (index == 7) {
+            return 'table-danger';
+        }
+        return '';
     }
 }
