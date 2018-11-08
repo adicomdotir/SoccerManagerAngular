@@ -133,6 +133,7 @@ export class GameService {
     }
 
     NewSeason() {
+        this.teamsPrice();
         this.PromoteAndRelegate();
 
         const playerHistories = this.storageService.getPlayerHistories();
@@ -197,6 +198,37 @@ export class GameService {
 
         this.endSeasonSubject.next();
         // this.gameCycle();
+    }
+
+    private teamsPrice() {
+        const teams = this.storageService.getTeams();
+        const table = this.storageService.getTable();
+        const div1 = table.filter(x => x.teamDiv == 1);
+        for (let i = 0; i < div1.length; i++) {
+            const element = div1[i];
+            teams.filter(x => x.id == element.teamId)[0].budget += 20000000 - i * 500000;
+        }
+        const div2 = table.filter(x => x.teamDiv == 2);
+        for (let i = 0; i < div2.length; i++) {
+            const element = div2[i];
+            teams.filter(x => x.id == element.teamId)[0].budget += 16000000 - i * 500000;
+        }
+        const div3 = table.filter(x => x.teamDiv == 3);
+        for (let i = 0; i < div3.length; i++) {
+            const element = div3[i];
+            teams.filter(x => x.id == element.teamId)[0].budget += 12000000 - i * 500000;
+        }
+        const div4 = table.filter(x => x.teamDiv == 4);
+        for (let i = 0; i < div4.length; i++) {
+            const element = div4[i];
+            teams.filter(x => x.id == element.teamId)[0].budget += 8000000 - i * 500000;
+        }
+        const div5 = table.filter(x => x.teamDiv == 5);
+        for (let i = 0; i < div5.length; i++) {
+            const element = div5[i];
+            teams.filter(x => x.id == element.teamId)[0].budget += 4000000 - i * 500000;
+        }
+        this.storageService.setTeams(teams);
     }
 
     calculateBudget() {
