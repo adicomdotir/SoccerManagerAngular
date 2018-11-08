@@ -32,6 +32,7 @@ export class FixtureComponent implements OnInit {
 
     divisionChange(value) {
         this.matches = this.storage.getMatches().filter(x => x.div == value);
+        console.log(this.matches)
     }
 
 }
