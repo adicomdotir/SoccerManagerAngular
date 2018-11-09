@@ -8,6 +8,7 @@ import { Match } from '../../../shared/model/match';
 import { StorageService } from '../../../core/services/storage.service';
 import { Table } from '../../../shared/model/table';
 import { GeneratorService } from '../../../core/services/generator.service';
+import { GameService } from '../../../core/services/game.service';
 
 @Component({
     selector: 'app-init',
@@ -21,7 +22,7 @@ export class InitComponent implements OnInit {
     size: number = 8;
     divSize: number = 5;
 
-    constructor(private router: Router, private storageService: StorageService, private generator: GeneratorService) { }
+    constructor(private router: Router, private storageService: StorageService, private generator: GeneratorService, private game: GameService) { }
 
     ngOnInit(): void { }
 
@@ -45,6 +46,8 @@ export class InitComponent implements OnInit {
         this.generator.generateMatches();
         this.generator.generateTable();
         this.storageService.setPlayerHistories([]);
+
+        this.game.newSeasonSubject.next();
 
         this.router.navigateByUrl('/home');
     }

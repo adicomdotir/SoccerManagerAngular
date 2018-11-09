@@ -23,6 +23,7 @@ export class StorageService {
         localStorage.removeItem('teams');
         localStorage.removeItem('topscorer');
         localStorage.removeItem('user');
+        localStorage.removeItem('scores');
     }
 
     encrypt(route, objectString) {

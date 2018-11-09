@@ -24,9 +24,7 @@ export class HeaderComponent implements OnInit {
         })
     }
 
-    ngOnInit() {
-        this.init();
-    }
+    ngOnInit() {}
 
     init() {
         this.user = this.storage.getUser();
