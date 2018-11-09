@@ -3,6 +3,7 @@ import { StorageService } from '../../../core/services/storage.service';
 import { Router, Route } from '@angular/router';
 import { GameService } from '../../services/game.service';
 import { User } from '../../../shared/model/user';
+import { Team } from '../../../shared/model/team';
 
 @Component({
     selector: 'app-header',
@@ -12,19 +13,25 @@ import { User } from '../../../shared/model/user';
 export class HeaderComponent implements OnInit {
     user: User;
     endSeason = false;
+    myTeam: Team;
 
     constructor(private storage: StorageService, private gameService: GameService) {
         gameService.$newSeasonSubject.subscribe(() => {
-            this.user = this.storage.getUser();
+            this.init();
         });
 
-        gameService.endSeasonSubject.subscribe(() => {
+        gameService.$endSeasonSubject.subscribe(() => {
             this.endSeason = !this.endSeason;
         })
     }
 
     ngOnInit() {
+        this.init();
+    }
+
+    init() {
         this.user = this.storage.getUser();
+        this.myTeam = this.storage.getTeams().filter(x => x.id == this.user.teamId)[0];
     }
 
 }
