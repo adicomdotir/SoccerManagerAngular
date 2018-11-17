@@ -62,11 +62,14 @@ export class GameService {
                     homePlayer.experience += 0.05;
                 }
                 //
-                let homeScore = Math.floor(Math.random() * (homePlayer.attack + homePlayer.finish) / 2) + homePlayer.morale + homePlayer.experience;
-                homeScore += Math.floor((homePlayer.attention + homePlayer.creativity) / 2);
-                let awayScore = Math.floor(Math.random() * (awayGK.defend + awayGK.goalkeeper) / 2) + awayGK.morale + awayGK.experience;
-                awayScore += Math.floor((awayGK.attention + awayGK.creativity) / 2);
-                if (homeScore > awayScore) {
+                let homeScore = homePlayer.attack + homePlayer.finish + homePlayer.creativity + homeGK.attention + homePlayer.morale + homePlayer.experience;
+                let awayScore = awayGK.defend + awayGK.goalkeeper + awayGK.attention + awayGK.creativity + awayGK.morale + awayGK.experience;
+                homeScore = homeScore * 100 / (homeScore + awayScore);
+                homeScore = Math.round(homeScore);
+                let rnd = Math.floor(Math.random() * 100);
+                
+                if (rnd < homeScore) {
+                    console.log('homeScoer[' + homeScore + ']' + ' awayScore[' + (Math.abs(homeScore - 100)) + ']' + ' Random[' + rnd + ']');
                     //
                     homePlayer.scored++;
                     if (homePlayer.morale > 0 && homePlayer.morale < 8) {
@@ -92,11 +95,13 @@ export class GameService {
                     awayPlayer.experience += 0.05;
                 }
                 //
-                homeScore = Math.floor(Math.random() * (homeGK.defend + homeGK.goalkeeper) / 2) + homeGK.morale + homeGK.experience;
-                homeScore += Math.floor((homeGK.attention + homeGK.creativity) / 2);
-                awayScore = Math.floor(Math.random() * (awayPlayer.attack + awayPlayer.finish) / 2) + awayPlayer.morale + awayPlayer.experience;
-                awayScore += Math.floor((awayPlayer.attention + awayPlayer.creativity) / 2);
-                if (homeScore < awayScore) {
+                homeScore = homeGK.defend + homeGK.goalkeeper + homeGK.attention + homeGK.creativity + homeGK.morale + homeGK.experience;
+                awayScore = awayPlayer.attack + awayPlayer.finish + awayPlayer.attention + awayPlayer.creativity + awayPlayer.morale + awayPlayer.experience;
+                homeScore = homeScore * 100 / (homeScore + awayScore);
+                homeScore = Math.round(homeScore);
+                rnd = Math.floor(Math.random() * 100);
+
+                if (rnd >= homeScore) {
                     //
                     awayPlayer.scored++;
                     if (awayPlayer.morale > 0 && awayPlayer.morale < 8) {
