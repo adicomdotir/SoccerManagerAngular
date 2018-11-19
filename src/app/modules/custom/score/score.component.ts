@@ -17,11 +17,11 @@ export class ScoreComponent implements OnInit {
     ngOnInit() {
         const user = this.storage.getUser();
         this.scores = this.storage.getScores().filter(x => x.matchId == user.selectedMatchId);
-        this.match = this.storage.getMatches().filter(x => x.id == user.selectedMatchId)[0];
+        this.match = this.storage.getMatches().find(x => x.id == user.selectedMatchId);
     }
 
     getPlayerTeam(id) {
-        const player = this.storage.getPlayers().filter(x => x.id == id)[0];
+        const player = this.storage.getPlayers().find(x => x.id == id);
         return this.storage.getTeamName(player.teamId);
     }
 

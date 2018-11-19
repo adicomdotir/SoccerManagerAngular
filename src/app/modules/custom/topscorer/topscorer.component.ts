@@ -27,7 +27,7 @@ export class TopscorerComponent implements OnInit {
     }
 
     getPlayerTeam(id) {
-        const player = this.storage.getPlayers().filter(x => x.id == id)[0];
+        const player = this.storage.getPlayers().find(x => x.id == id);
         return this.storage.getTeamName(player.teamId);
     }
 

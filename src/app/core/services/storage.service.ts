@@ -108,12 +108,12 @@ export class StorageService {
     }
 
     getTeamName(id): string {
-        const team = this.getTeams().filter(x => x.id === id)[0];
+        const team = this.getTeams().find(x => x.id === id);
         return team.name;
     }
 
     getPlayerName(id) {
-        const player = this.getPlayers().filter(x => x.id == id)[0];
+        const player = this.getPlayers().find(x => x.id == id);
         return player.name;
     }
 

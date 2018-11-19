@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
     init() {
         this.user = this.storage.getUser();
-        this.myTeam = this.storage.getTeams().filter(x => x.id == this.user.teamId)[0];
+        this.myTeam = this.storage.getTeams().find(x => x.id == this.user.teamId);
     }
 
 }

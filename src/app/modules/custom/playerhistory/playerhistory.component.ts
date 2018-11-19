@@ -22,7 +22,7 @@ export class PlayerHistoryComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.storage.getUser();
-        this.player = this.storage.getPlayers().filter(x => x.id == this.user.selectedPlayerId)[0];
+        this.player = this.storage.getPlayers().find(x => x.id == this.user.selectedPlayerId);
         this.playerhistory = this.storage.getPlayerHistories().filter(x => x.playerId == this.user.selectedPlayerId);
         for (let index = 0; index < this.playerhistory.length; index++) {
             const element = this.playerhistory[index];

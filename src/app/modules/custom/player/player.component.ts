@@ -15,7 +15,7 @@ export class PlayerComponent implements OnInit {
 
     ngOnInit() {
         const user = this.storage.getUser();
-        this.player = this.storage.getPlayers().filter(x => x.id == user.selectedPlayerId)[0];
+        this.player = this.storage.getPlayers().find(x => x.id == user.selectedPlayerId);
     }
 
     getMorale(id) {

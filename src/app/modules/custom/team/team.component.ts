@@ -20,7 +20,7 @@ export class TeamComponent implements OnInit {
 
     ngOnInit() {
         this.user = this.storage.getUser();
-        this.team = this.storage.getTeams().filter(x => x.id == this.user.selectedTeamId)[0];
+        this.team = this.storage.getTeams().find(x => x.id == this.user.selectedTeamId);
         this.players = this.storage.getPlayers()
                                     .filter(x => x.teamId == this.user.selectedTeamId)
                                     .filter(x => x.retired == false);

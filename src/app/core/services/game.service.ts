@@ -211,27 +211,27 @@ export class GameService {
         const div1 = table.filter(x => x.teamDiv == 1);
         for (let i = 0; i < div1.length; i++) {
             const element = div1[i];
-            teams.filter(x => x.id == element.teamId)[0].budget += 20000000 - i * 500000;
+            teams.find(x => x.id == element.teamId).budget += 20000000 - i * 500000;
         }
         const div2 = table.filter(x => x.teamDiv == 2);
         for (let i = 0; i < div2.length; i++) {
             const element = div2[i];
-            teams.filter(x => x.id == element.teamId)[0].budget += 16000000 - i * 500000;
+            teams.find(x => x.id == element.teamId).budget += 16000000 - i * 500000;
         }
         const div3 = table.filter(x => x.teamDiv == 3);
         for (let i = 0; i < div3.length; i++) {
             const element = div3[i];
-            teams.filter(x => x.id == element.teamId)[0].budget += 12000000 - i * 500000;
+            teams.find(x => x.id == element.teamId).budget += 12000000 - i * 500000;
         }
         const div4 = table.filter(x => x.teamDiv == 4);
         for (let i = 0; i < div4.length; i++) {
             const element = div4[i];
-            teams.filter(x => x.id == element.teamId)[0].budget += 8000000 - i * 500000;
+            teams.find(x => x.id == element.teamId).budget += 8000000 - i * 500000;
         }
         const div5 = table.filter(x => x.teamDiv == 5);
         for (let i = 0; i < div5.length; i++) {
             const element = div5[i];
-            teams.filter(x => x.id == element.teamId)[0].budget += 4000000 - i * 500000;
+            teams.find(x => x.id == element.teamId).budget += 4000000 - i * 500000;
         }
         this.storageService.setTeams(teams);
     }
@@ -261,20 +261,20 @@ export class GameService {
         const temp = newArray.sort((b, a) => {
             return (a.goalkeeper + a.defend) - (b.goalkeeper + b.defend)
         })[0];
-        return customPlayers.filter(x => x.id == temp.id)[0];
+        return customPlayers.find(x => x.id == temp.id);
     }
 
     private updateTable(match: Match) {
         const table = this.storageService.getTable();
         if (match.homeTeamGoal === match.awayTeamGoal) {
-            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            const homeTeam = table.find(x => x.teamId === match.homeTeamId);
             homeTeam.game++;
             homeTeam.draw++;
             homeTeam.gf += match.homeTeamGoal;
             homeTeam.ga += match.awayTeamGoal;
             homeTeam.gd = homeTeam.gf - homeTeam.ga;
             homeTeam.points++;
-            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            const awayTeam = table.find(x => x.teamId === match.awayTeamId);
             awayTeam.game++;
             awayTeam.draw++;
             awayTeam.gf += match.awayTeamGoal;
@@ -282,27 +282,27 @@ export class GameService {
             awayTeam.gd = awayTeam.gf - awayTeam.ga;
             awayTeam.points++;
         } else if (match.homeTeamGoal > match.awayTeamGoal) {
-            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            const homeTeam = table.find(x => x.teamId === match.homeTeamId);
             homeTeam.game++;
             homeTeam.win++;
             homeTeam.gf += match.homeTeamGoal;
             homeTeam.ga += match.awayTeamGoal;
             homeTeam.gd = homeTeam.gf - homeTeam.ga;
             homeTeam.points += 3;
-            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            const awayTeam = table.find(x => x.teamId === match.awayTeamId);
             awayTeam.game++;
             awayTeam.lose++;
             awayTeam.gf += match.awayTeamGoal;
             awayTeam.ga += match.homeTeamGoal;
             awayTeam.gd = awayTeam.gf - awayTeam.ga;
         } else {
-            const homeTeam = table.filter(x => x.teamId === match.homeTeamId)[0];
+            const homeTeam = table.find(x => x.teamId === match.homeTeamId);
             homeTeam.game++;
             homeTeam.lose++;
             homeTeam.gf += match.homeTeamGoal;
             homeTeam.ga += match.awayTeamGoal;
             homeTeam.gd = homeTeam.gf - homeTeam.ga;
-            const awayTeam = table.filter(x => x.teamId === match.awayTeamId)[0];
+            const awayTeam = table.find(x => x.teamId === match.awayTeamId);
             awayTeam.game++;
             awayTeam.win++;
             awayTeam.gf += match.awayTeamGoal;
