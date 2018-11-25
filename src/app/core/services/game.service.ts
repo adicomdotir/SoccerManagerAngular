@@ -19,6 +19,8 @@ export class GameService {
     $newSeasonSubject = this.newSeasonSubject.asObservable();
     endSeasonSubject = new Subject();
     $endSeasonSubject = this.endSeasonSubject.asObservable();
+    weekSubject = new Subject();
+    $weekSubject = this.weekSubject.asObservable();
 
     constructor(private storageService: StorageService, private generator: GeneratorService) {
         let user: User = storageService.getUser();
@@ -27,6 +29,7 @@ export class GameService {
 
     gameCycle() {
         const user: User = this.storageService.getUser();
+        if (user.week == 15) return;
         let matches: Match[] = this.storageService.getMatches();
         let otherMatches = matches.filter(x => x.week != user.week);
         matches = matches.filter(x => x.week == user.week);
@@ -132,6 +135,7 @@ export class GameService {
         this.storageService.setScores(scores);
         user.week++;
         this.storageService.setUser(user);
+        this.weekSubject.next();
         if (user.week > 14) {
             this.endSeasonSubject.next();
         }

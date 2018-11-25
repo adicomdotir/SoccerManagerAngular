@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit {
         gameService.$endSeasonSubject.subscribe(() => {
             this.endSeason = !this.endSeason;
         })
+
+        gameService.$weekSubject.subscribe(() => {
+            this.user = this.storage.getUser();
+        })
     }
 
     ngOnInit() {}
