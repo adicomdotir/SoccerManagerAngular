@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../core/services/storage.service';
+import { GameService } from '../../../core/services/game.service';
 import { Player } from '../../../shared/model/player';
 import { MORALES } from '../../../config/localdata';
 
@@ -10,12 +11,14 @@ import { MORALES } from '../../../config/localdata';
 })
 export class PlayerComponent implements OnInit {
     player: Player;
+    isUserPlayer: boolean;
 
-    constructor(private storage: StorageService) { }
+    constructor(private storage: StorageService, private game: GameService) { }
 
     ngOnInit() {
         const user = this.storage.getUser();
         this.player = this.storage.getPlayers().find(x => x.id == user.selectedPlayerId);
+        this.isUserPlayer = user.teamId === this.player.teamId;        
     }
 
     getMorale(id) {

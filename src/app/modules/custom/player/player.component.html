@@ -71,6 +71,12 @@
                 <td>
                     <h4><a routerLink="#" (click)="storage.linkClick('playerhistory', player.id)">Player History</a></h4>
                 </td>
+                <td *ngIf="isUserPlayer" >
+                    <h4><a routerLink="#" (click)="game.firePlayer(player.id)">Fire Player</a></h4>
+                </td>
+                <td *ngIf="!isUserPlayer" >
+                    <h4><a routerLink="#" (click)="storage.linkClick('playerhistory', player.id)">Hire Player</a></h4>
+                </td>
             </tr>
         </table>
     </div>

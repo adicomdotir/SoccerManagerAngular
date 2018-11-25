@@ -109,6 +109,7 @@ export class StorageService {
 
     getTeamName(id): string {
         const team = this.getTeams().find(x => x.id === id);
+        if (team == null || team == undefined) return "Free Player"
         return team.name;
     }
 

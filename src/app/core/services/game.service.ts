@@ -415,4 +415,11 @@ export class GameService {
         }
         return '';
     }
+
+    firePlayer(playerId) {
+        const players = this.storageService.getPlayers();
+        const player = players.find(x => x.id == playerId);
+        player.teamId = -1;
+        this.storageService.setPlayers(players);
+    }
 }
