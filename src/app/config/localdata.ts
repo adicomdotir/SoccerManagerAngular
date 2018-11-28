@@ -75,15 +75,15 @@ export const countries = [
     // 'Ecuador',
     'England',
     'Egypt',
-    // 'Finland',
+    'Finland',
     'France',
-    // 'Georgia',
+    'Georgia',
     'Germany',
-    // 'Ghana',
+    'Ghana',
     'Greece',
     // 'Guatemala',
     // 'Honduras',
-    // 'Hungary',
+    'Hungary',
     // 'Iceland',
     'Iran',
     'Iraq',
@@ -104,7 +104,7 @@ export const countries = [
     'Netherlands',
     // 'New Zealand',
     'Nigeria',
-    // 'Norway',
+    'Norway',
     // 'Panama',
     // 'Paraguay',
     // 'Peru',
@@ -128,8 +128,8 @@ export const countries = [
     'UAE',
     'USA',
     'Uruguay',
-    // 'Uzbekistan',
-    // 'Venezuela'
+    'Uzbekistan',
+    'Venezuela'
 ];
 
 export const MORALES = [
