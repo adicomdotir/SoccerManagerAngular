@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="row">
-            <h3><a routerLink="#" (click)="storage.linkClick('table')">League Table</a>&nbsp;- Division {{userDiv}}</h3>
+            <h3><a routerLink="#" (click)="storage.linkClick('table', null)">League Table</a>&nbsp;- Division {{userDiv}}</h3>
             <table class="table table-sm">
                 <thead>
                     <tr>
@@ -30,7 +30,7 @@
         </div>
         <form>
             <div class="form-group">
-                <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture')">Fixture</a>&nbsp;- Division
+                <label for="fixture"><h3><a routerLink="#" (click)="storage.linkClick('fixture', null)">Fixture</a>&nbsp;- Division
                         {{userDiv}}
                     </h3></label>
                 <select class="form-control" id="fixture" (change)="fixtureChange($event.target.value)">
@@ -52,7 +52,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-5 text-center">
         <div class="row">
-            <h3><a routerLink="#" (click)="storage.linkClick('topscorer')">TopScorer</a>&nbsp;- Division {{userDiv}}</h3>
+            <h3><a routerLink="#" (click)="storage.linkClick('topscorer', null)">TopScorer</a>&nbsp;- Division {{userDiv}}</h3>
             <table class="table table-sm">
                 <thead>
                     <tr>

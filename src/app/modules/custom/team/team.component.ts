@@ -16,7 +16,7 @@ export class TeamComponent implements OnInit {
     overall: number = 0;
     team: Team;
 
-    constructor(private storage: StorageService) { }
+    constructor(public storage: StorageService) { }
 
     ngOnInit() {
         this.user = this.storage.getUser();

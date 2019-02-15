@@ -13,7 +13,7 @@ export class PlayerComponent implements OnInit {
     player: Player;
     isUserPlayer: boolean;
 
-    constructor(private storage: StorageService, private game: GameService) { }
+    constructor(public storage: StorageService, private game: GameService) { }
 
     ngOnInit() {
         const user = this.storage.getUser();

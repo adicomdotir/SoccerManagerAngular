@@ -18,7 +18,7 @@ export class PlayerHistoryComponent implements OnInit {
     player: Player;
     user: User;
 
-    constructor(private storage: StorageService) { }
+    constructor(public storage: StorageService) { }
 
     ngOnInit() {
         this.user = this.storage.getUser();

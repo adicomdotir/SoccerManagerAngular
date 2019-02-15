@@ -17,7 +17,7 @@ export class TacticComponent implements OnInit {
     user: User;
     id: number;
 
-    constructor(private storage: StorageService, private gameService: GameService) { }
+    constructor(public storage: StorageService, private gameService: GameService) { }
 
     ngOnInit() {
         this.user = this.storage.getUser();
