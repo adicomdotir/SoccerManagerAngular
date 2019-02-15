@@ -12,7 +12,7 @@ export class ScoreComponent implements OnInit {
     scores: Score[];
     match: Match;
 
-    constructor(private storage: StorageService) { }
+    constructor(public storage: StorageService) { }
 
     ngOnInit() {
         const user = this.storage.getUser();

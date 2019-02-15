@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     players: Player[] = [];
     userDiv: number;
 
-    constructor(private gameService: GameService, private storage: StorageService, private router: Router) { }
+    constructor(private gameService: GameService, public storage: StorageService, private router: Router) { }
 
     ngOnInit() {
         this.user = this.storage.getUser();

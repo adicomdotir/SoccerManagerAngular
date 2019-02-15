@@ -10,7 +10,7 @@ import { StorageService } from '../../../core/services/storage.service';
 export class PlayersComponent implements OnInit {
     players: Player[];
 
-    constructor(private storage: StorageService) { }
+    constructor(public storage: StorageService) { }
 
     ngOnInit() {
         this.players = this.storage.getPlayers();
