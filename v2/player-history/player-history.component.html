@@ -1,0 +1,16 @@
+<p>
+  player-history works!
+</p>
+
+{{playerId}}
+
+<table>
+    <tr>
+        <th>Year</th>
+        <th>TeamId</th>
+    </tr>
+    <tr *ngFor="let ph of playerHistories">
+        <td>{{ph.year}}</td>
+        <td>{{ph.teamId}}</td>
+    </tr>
+</table>

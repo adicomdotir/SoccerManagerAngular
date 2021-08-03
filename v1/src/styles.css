@@ -1,0 +1,30 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Kreon');
+* {
+    /* font-family: 'Delius', cursive; */
+    /* font-family: 'Patrick Hand', cursive; */
+    font-family: 'Kreon', serif;
+}
+
+body {
+    padding-top: 5rem;
+}
+
+.starter-template {
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+
+.blog-footer {
+    margin-top: 20px;
+    padding: 0.5rem 0;
+    color: rgb(56, 55, 55);
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+
+.table-second {
+    background-color: #ebfff0;
+}

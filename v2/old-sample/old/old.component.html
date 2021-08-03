@@ -1,0 +1,45 @@
+<div>
+    <button (click)="start()">Play {{buttonMessage}}</button>
+</div>
+<div style="display: flex;  flex-direction: row;  align-items: stretch;">
+    <div style="width: 30%; text-align: center;">
+        <div>
+            <h3>Hall Of Fame</h3>
+        </div>
+        <table style="margin: auto;">
+            <tr>
+                <th style="width: 50%;">World Cup</th>
+                <th style="width: 50%;">Champion</th>
+            </tr>
+            <tr *ngFor="let hallOfFame of gameEngine.hallOfFames; let i = index;">
+                <td>{{gameEngine.getTournamentId(hallOfFame.tournamentName)}}</td>
+                <td>{{gameEngine.getTeamName(hallOfFame.champion)}}</td>
+            </tr>
+        </table>
+    </div>
+    <div style="width: 50%; text-align: center;">
+        <div *ngFor="let arr of matches">
+            <div style="font-weight: bold; font-size: 110%;">Cup 1/{{arr.length}}</div>
+            <div *ngFor="let match of arr">
+                {{gameEngine.getTeamName(match.homeTeamId)}}
+                {{match.homeTeamGoal}}-{{match.awayTeamGoal}}
+                {{gameEngine.getTeamName(match.awayTeamId)}}
+            </div>
+        </div>
+    </div>
+    <div id="ranking" style="text-align:center;width: 20%;">
+        <div>
+            <h3>Ranking</h3>
+        </div>
+        <table>
+            <tr>
+                <th style="width: 50%;">#</th>
+                <th style="width: 50%;">Country</th>
+            </tr>
+            <tr *ngFor="let ct of localRanking; let i = index;">
+                <td>{{i + 1}}</td>
+                <td>{{ct}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

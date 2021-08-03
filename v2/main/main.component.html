@@ -1,0 +1,44 @@
+<button (click)="next()">END {{engine.year}}</button>
+<div style="margin: 32px">
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PRICE</th>
+            <th>TRANSFER MARKET</th>
+        </tr>
+        <tr *ngFor="let itm of engine.teams">
+            <td>{{itm.id}}</td>
+            <td>{{itm.name}}</td>
+            <td>{{itm.price}}</td>
+            <td>{{itm.transferManager}}</td>
+        </tr>
+    </table>
+</div>
+<div style="margin: 32px">
+    <table style="width: 100%">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>Overall</th>
+            <th>Price</th>
+            <th>Team</th>
+        </tr>
+        <tr *ngFor="let itm of engine.players">
+            <td>{{itm.id}}</td>
+            <td><a routerLink="./player/{{itm.id}}">{{itm.fullName}}</a></td>
+            <td>{{itm.birth}} (AGE={{engine.year - itm.birth}})</td>
+            <td>{{itm.overall}}</td>
+            <td>{{itm.price}}</td>
+            <td>{{itm.teamId}}</td>
+        </tr>
+    </table>
+</div>
+<div style="margin: 32px">
+    <table style="width: 100%">
+        <tr *ngFor="let itm of engine.transferLog">
+            <td>{{itm}}</td>
+        </tr>
+    </table>
+</div>
