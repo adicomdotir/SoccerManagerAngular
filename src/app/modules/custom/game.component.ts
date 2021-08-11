@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {countries} from '../../config/localdata';
 
 @Component({
     selector: 'app-game',
@@ -56,6 +57,7 @@ export class GameComponent implements OnInit {
     allPlayer: Player[] = [];
     tables: { id, g, w, d, l, gf, ga, pts }[] = [];
     promotions = [];
+    bestPlayers: Array<BestPlayer> = [];
 
     constructor() {
     }
@@ -116,7 +118,7 @@ export class GameComponent implements OnInit {
     }
 
     private increaseAge() {
-        this.allPlayer.forEach(x => {
+        this.allPlayer.filter(x => x.age < 40).forEach(x => {
             x.age += 1;
             if (x.age >= 40) {
                 const pid = this.allPlayer.length + 1001;
@@ -131,7 +133,7 @@ export class GameComponent implements OnInit {
     }
 
     private trainingEffect() {
-        this.allPlayer.forEach(x => {
+        this.allPlayer.filter(x => x.age < 40).forEach(x => {
             if (x.age < 30) {
                 x.attack += 1;
                 x.playMaking += 1;
@@ -191,7 +193,7 @@ export class GameComponent implements OnInit {
             } else {
                 awayGoalChance += differentCalculate;
             }
-            
+
             for (let j = 0; j < max; j++) {
                 const rnd = Math.ceil(Math.random() * 150);
                 if (rnd <= pmHome) {
@@ -270,6 +272,10 @@ export class GameComponent implements OnInit {
         this.relegation.push(teamIndex[(this.tables)[this.tables.length - 1].id]);
         this.relegation.push(teamIndex[(this.tables)[this.tables.length - 2].id]);
 
+        const topPlayer = this.getPlayerWithSort()[0];
+        const overallTopPlayer = topPlayer.attack + topPlayer.defence + topPlayer.playMaking;
+        this.bestPlayers.push(new BestPlayer(topPlayer.id, topPlayer.teamId, topPlayer.age, overallTopPlayer, topPlayer.country));
+
         this.promotionTeams();
     }
 
@@ -318,7 +324,7 @@ export class GameComponent implements OnInit {
     }
 
     getPlayerWithSort() {
-        return this.allPlayer.sort((x, y) => (y.attack + y.defence + y.playMaking) - (x.attack + x.defence + x.playMaking))
+        return this.allPlayer.sort((x, y) => (y.attack + y.defence + y.playMaking) - (x.attack + x.defence + x.playMaking));
     }
 }
 
@@ -329,6 +335,7 @@ class Player {
     playMaking: number;
     attack: number;
     age: number;
+    country: string;
 
     constructor(id: number, teamId: number, defence: number, playMaking: number, attack: number) {
         this.id = id;
@@ -337,6 +344,23 @@ class Player {
         this.playMaking = playMaking;
         this.attack = attack;
         this.age = Math.floor(Math.random() * 18) + 18;
+        this.country = countries[Math.floor(Math.random() * countries.length)];
+    }
+}
+
+class BestPlayer {
+    playerId: number;
+    teamId: number;
+    age: number;
+    overall: number;
+    country: string;
+
+    constructor(playerId: number, teamId: number, age: number, overall: number, country: string) {
+        this.playerId = playerId;
+        this.teamId = teamId;
+        this.age = age;
+        this.overall = overall;
+        this.country = country;
     }
 }
 
